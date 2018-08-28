@@ -1,7 +1,9 @@
-mulist=0:.1:2;
+function sweep(delta)
+mulist=0:.05:2;
 store=zeros(length(mulist),50);
 parfor i=1:length(mulist)
     mu=mulist(i);
-    store(i,:)=spec(mu,.2,2);
+    store(i,:)=spec(mu,delta,2);
 end
-save('store.dat','store','-ascii');
+save(strcat('delta12',num2str(delta),'.dat'),'store','-ascii');
+end
