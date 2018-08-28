@@ -31,5 +31,5 @@ parfor i=1:length(vzset)
     end  
     en(i)=min(abs(eigo));
 end
-re=[vzset;t];
+re=en;
 end
