@@ -1,5 +1,5 @@
 function sweep(deltac)
-delta=.2
+delta=.2;
 mulist=0:.05:2;
 store=zeros(length(mulist),50);
 parfor i=1:length(mulist)
