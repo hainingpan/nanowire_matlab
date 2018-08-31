@@ -7,7 +7,7 @@ vzset=linspace(0,vzm,vzgrid);
 % vzstep=vzset(2)-vzset(1);
 % vzset2=0:vzstep/100:vzm;
 en=zeros(1,length(vzset));
-for i=1:length(vzset)
+parfor i=1:length(vzset)
      warning('off','all');
     vz=vzset(i);
     ham=hmb(1,mu,delta,vz,alpha,deltac,3000);    

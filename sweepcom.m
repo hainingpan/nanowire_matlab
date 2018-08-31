@@ -1,6 +1,6 @@
 mulist=0:.05:2;
-b=zeros(length(mulist),50);
-u=zeros(length(mulist),50);
+b=zeros(length(mulist),51);
+u=zeros(length(mulist),51);
 delta=.2;
 parfor i=1:length(mulist)
     mu=mulist(i);
