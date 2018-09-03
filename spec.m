@@ -6,7 +6,7 @@ vzgrid=101;
 vzset=linspace(0,vzm,vzgrid);
 % vzstep=vzset(2)-vzset(1);
 % vzset2=0:vzstep/100:vzm;
-nv=30;
+nv=60;
 en=zeros(nv,length(vzset));
 parfor i=1:length(vzset)
 %      warning('off','all');
@@ -49,7 +49,7 @@ parfor i=1:length(vzset)
     end         
             
     eigo2=eigo(eigo>=0);
-    en(:,i)=eigo2(1:60);
+    en(:,i)=eigo2(1:nv);
 end
 re=en;
 rev=vzset;
