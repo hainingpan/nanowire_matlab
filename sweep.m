@@ -6,7 +6,7 @@ for i=1:length(mulist)
     mu=mulist(i);
     disp(mu);
     [X,Y]=spec(mu,delta,2,deltac);
-    save(strcat('mu',num2str(mu),'.dat','Y','-ascii'));
+    save(strcat('mu',num2str(mu),'.dat'),'Y','-ascii');
 end
 % save(strcat('deltac',num2str(deltac),'.dat'),'store','-ascii');
 end
