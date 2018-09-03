@@ -6,7 +6,7 @@ vzgrid=201;
 vzset=linspace(0,vzm,vzgrid);
 % vzstep=vzset(2)-vzset(1);
 % vzset2=0:vzstep/100:vzm;
-nv=100;
+nv=150;
 en=zeros(nv,length(vzset));
 parfor i=1:length(vzset)
 %      warning('off','all');
@@ -34,7 +34,7 @@ parfor i=1:length(vzset)
 %     en(i)=min(abs(eigo));
 
 %% nv of smallest eigenvalue
-    eigo=eigs(ham,300,0,'Tolerance',1e-5,'MaxIterations',10000);
+    eigo=eigs(ham,400,0,'Tolerance',1e-5,'MaxIterations',10000);
     if (abs(eigo(1)) <1e-10 && abs(eigo(2))<1e-10 )
         if(eigo(1)*eigo(2)>0)
             eigo(2)=[];
