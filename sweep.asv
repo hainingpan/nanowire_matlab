@@ -1,6 +1,12 @@
-mulist=0:.1:2;
-store=zeros(length(mulist),50);
+function sweep(deltac)
+delta=.2;
+mulist=0:.05:2;
+store=zeros(100,201);
 for i=1:length(mulist)
     mu=mulist(i);
-    store(i,:)=spec(mu,.2,2);
-1end
+    disp(mu);
+    [X,Y]=spec(mu,delta,2,deltac);
+    save()
+end
+% save(strcat('deltac',num2str(deltac),'.dat'),'store','-ascii');
+end

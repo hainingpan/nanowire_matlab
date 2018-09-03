@@ -1,12 +1,12 @@
 function [rev,re]=spec(mu,delta,alpha,deltac)
 t=25;
-vzm=1;
+vzm=2;
 % vzm=((-alpha^2+2*t*mu)*sqrt(delta^2+mu^2)+sqrt(4*t*mu*alpha^2*(mu^2-delta^2)+(alpha^4+4*t^2*mu^2)*(delta^2+mu^2)))/(4*t*mu);
-vzgrid=101;
+vzgrid=201;
 vzset=linspace(0,vzm,vzgrid);
 % vzstep=vzset(2)-vzset(1);
 % vzset2=0:vzstep/100:vzm;
-nv=60;
+nv=100;
 en=zeros(nv,length(vzset));
 parfor i=1:length(vzset)
 %      warning('off','all');
@@ -34,7 +34,7 @@ parfor i=1:length(vzset)
 %     en(i)=min(abs(eigo));
 
 %% nv of smallest eigenvalue
-    eigo=eigs(ham,200,0,'Tolerance',1e-5,'MaxIterations',10000);
+    eigo=eigs(ham,300,0,'Tolerance',1e-5,'MaxIterations',10000);
     if (abs(eigo(1)) <1e-10 && abs(eigo(2))<1e-10 )
         if(eigo(1)*eigo(2)>0)
             eigo(2)=[];
