@@ -13,7 +13,7 @@ switch smoothpot
     case 'cos'
         mulist=cos((0:dim-1)*pi/dim)*mumax+mu;
     case 'sigmoid'
-        mulist=1./(exp(-((0:dim-1)-0.5*dim))+1);
+        mulist=mumax*1./(exp(-((0:dim-1)-0.5*dim))+1)+mu;
     case 'lorentz'
         mulist=mumax*1.0./((((0:dim-1)-peakpos*dim)).^2+.5)+mu;
     case 'lorentzsigmoid'
