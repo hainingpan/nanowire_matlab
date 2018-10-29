@@ -9,13 +9,13 @@ band1m1sm=(spdiags([ones(dim,1) -ones(dim,1)],[-1,1],dim,dim));
 eyesm=speye(dim);
 switch smoothpot
     case 'sin2'
-        mulist=sin(range(dim)*2*pi/dim)*mumax+mu;
+        mulist=sin((0:dim-1)*2*pi/dim)*mumax+mu;
     case 'cos'
-        mulist=cos(range(dim)*pi/dim)*mumax+mu;
+        mulist=cos((0:dim-1)*pi/dim)*mumax+mu;
     case 'lorentz'
-        mulist=mumax*1.0/(((range(dim)-peakpos*dim))^2+.5)+mu;
+        mulist=mumax*1.0./((((0:dim-1)-peakpos*dim)).^2+.5)+mu;
     case 'lorentzsigmoid'
-        mulist=(mumax*1.0/((range(dim)-peakpos*dim)^2+.5)+(4-mu)/2./(exp(-(range(dim)-0.5*dim))+1))+mu;
+        mulist=(mumax*1.0./(((0:dim-1)-peakpos*dim).^2+.5)+(4-mu)/2./(exp(-((0:dim-1)-0.5*dim))+1))+mu;
 end      
 re=kron(sz,(kron(eye(2),-t*band11sm+(2*t)*eyesm-diag(mulist))+kron(sy,1i*alpha*band1m1sm)))+kron(eye(2),kron(sz,vz*eyesm))+kron(sx,kron(eye(2),delta*eyesm));
 end

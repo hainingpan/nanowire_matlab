@@ -20,16 +20,16 @@ fn_alpha=strcat('a',num2str(alpha));
 fn_wl=strcat('L',num2str(dim));
 fn_smoothpot=num2str(smoothpot);
 fn_mumax=strcat('mx',num2str(mumax));
-if (strcmp(smoothpot,'sin2')||strcmp(smoothpot,'cos'))
+if (strcmp(smoothpot,'lorentz')||strcmp(smoothpot,'lorentzsigmoid'))
     fn_peakpos=strcat('pk',num2str(peakpos));
 else
     fn_peakpos='';
 end
 fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_smoothpot,fn_mumax,fn_peakpos);
 save(strcat(fn,'.dat'),'re','-ascii');
-plot(vzlist,en)
+fig=plot(vzlist,en)
 xlabel('V_Z(meV)')
 ylabel('V_{bias}(meV)')
 axis([0,4,-.3,.3])
-saveas(gcf,strcat(fn,'.png'))
+saveas(fig,strcat(fn,'.png'))
 return 
