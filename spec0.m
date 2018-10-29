@@ -27,9 +27,9 @@ else
 end
 fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_smoothpot,fn_mumax,fn_peakpos);
 save(strcat(fn,'.dat'),'re','-ascii');
-fig=plot(vzlist,en)
+plot(vzlist,en)
 xlabel('V_Z(meV)')
 ylabel('V_{bias}(meV)')
 axis([0,4,-.3,.3])
-saveas(fig,strcat(fn,'.png'))
+saveas(gcf,strcat(fn,'.png'))
 return 
