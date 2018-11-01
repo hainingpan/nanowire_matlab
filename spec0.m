@@ -1,12 +1,12 @@
 %%for single band 
-function [rev,re]=spec0(mu,dim,smoothpot,mumax,peakpos)
-a=.1;
+function [rev,re]=spec0(a,mu,dim,smoothpot,mumax,peakpos)
+% a=1;
 delta=0.2;
 alpha=5;
 vzlist=0:0.01:4;
 nv=30;
 en=zeros(nv,length(vzlist));
-for i=1:length(vzlist)
+parfor i=1:length(vzlist)
     vz=vzlist(i);
     ham=hmu(a,mu,delta,vz,alpha,dim,smoothpot,mumax,peakpos);
     eigo=eigs(ham,nv,0,'Tolerance',1e-5,'MaxIterations',20000);
