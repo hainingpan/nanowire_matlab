@@ -12,15 +12,15 @@ switch smoothpot
     case 'const'
         mulist=ones(dim,1)*mu;
     case 'sin2'
-        mulist=sin((0:dim-1)*2*pi/dim)*mumax+mu;
+        mulist=sin(site*2*pi/dim)*mumax+mu;
     case 'cos'
-        mulist=cos((0:dim-1)*pi/dim)*mumax+mu;
+        mulist=cos(site*pi/dim)*mumax+mu;
     case 'sigmoid'
-        mulist=mumax*1./(exp(-((0:dim-1)-0.5*dim))+1)+mu;
+        mulist=mumax*1./(exp(-(site-0.5*dim))+1)+mu;
     case 'lorentz'
         mulist=mumax*1.0./(((site'-peakpos*dim)).^2+.5)+mu;
     case 'lorentzsigmoid'
-        mulist=(mumax*1.0./(((0:dim-1)-peakpos*dim).^2+.5)+(4-mu)/2./(exp(-((0:dim-1)-0.5*dim))+1))+mu;
+        mulist=(mumax*1.0./((site-peakpos*dim).^2+.5)+(4-mu)/2./(exp(-(site-0.5*dim))+1))+mu;
 end      
 diagmulist=spdiags(mulist,0,dim,dim);
 re=kron(sz,(kron(eye(2),-t*band11sm+(2*t)*eyesm-diagmulist)+kron(sy,1i*alpha*band1m1sm)))+kron(eye(2),kron(sz,vz*eyesm))+kron(sx,kron(eye(2),delta*eyesm));
