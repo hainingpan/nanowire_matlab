@@ -1,10 +1,11 @@
 %%for single band 
 function [rev,re]=spec0(a,mu,dim,smoothpot,mumax,peakpos)
 % a=1;
-delta=0.2;
+% delta=0.2;
+delta=.9;
 alpha=5;
 vzlist=0:0.01:4;
-nv=30;
+nv=60;
 en=zeros(nv,length(vzlist));
 parfor i=1:length(vzlist)
     vz=vzlist(i);
@@ -30,6 +31,7 @@ save(strcat(fn,'.dat'),'re','-ascii');
 plot(vzlist,en)
 xlabel('V_Z(meV)')
 ylabel('V_{bias}(meV)')
-axis([0,4,-.3,.3])
+% axis([0,4,-.3,.3])
+axis([0,3,-1.5,1.5])
 saveas(gcf,strcat(fn,'.png'))
 return 
