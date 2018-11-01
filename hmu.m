@@ -7,7 +7,7 @@ alpha=alpha_R/(2*a);
 band11sm=(spdiags([ones(dim,1) ones(dim,1)],[-1,1],dim,dim));
 band1m1sm=(spdiags([ones(dim,1) -ones(dim,1)],[-1,1],dim,dim));
 eyesm=speye(dim);
-site=0:dim-1;
+site=(0:dim-1)';
 switch smoothpot
     case 'const'
         mulist=ones(dim,1)*mu;
@@ -18,7 +18,7 @@ switch smoothpot
     case 'sigmoid'
         mulist=mumax*1./(exp(-(site-0.5*dim))+1)+mu;
     case 'lorentz'
-        mulist=mumax*1.0./(((site'-peakpos*dim)).^2+.5)+mu;
+        mulist=mumax*1.0./(((site-peakpos*dim)).^2+.5)+mu;
     case 'lorentzsigmoid'
         mulist=(mumax*1.0./((site-peakpos*dim).^2+.5)+(4-mu)/2./(exp(-(site-0.5*dim))+1))+mu;
 end      
