@@ -1,4 +1,4 @@
-function [rev,re]=LDOS_Vz(mu,dim,eta,smoothpot,mumax,peakpos,)
+function [rev,re]=LDOS_Vz(mu,dim,eta,smoothpot,mumax,peakpos)
 delta=0.2;
 alpha=5;
 x=1;
