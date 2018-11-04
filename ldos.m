@@ -1,11 +1,7 @@
-function re=ldos(Vz,x,omega,delta)
+function re=ldos(mu,Delta,Vz,alpha_R,dim,smoothpot,mumax,peakpos,sigma,x,omega,delta)
 a=1;
-mu=0.2;
-Delta=0.2;
-dim=200;
-alpha_R=5;
-ham=hc(a,mu,Delta,Vz,alpha_R,dim);
-G=inv(full((omega+1i*delta)*speye(4*dim)-ham));
+ham=hmu(a,mu,Delta,Vz,alpha_R,dim,smoothpot,mumax,peakpos,sigma);
+G=inv(full((omega+1i*delta)*speye(4*dim)-ham)); %check when full should be changed
 Gdiag=diag(G);
 re=-imag(Gdiag(x)+Gdiag(x+dim)+Gdiag(x+2*dim)+Gdiag(x+3*dim))/pi;
 end

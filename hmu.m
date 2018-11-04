@@ -1,5 +1,5 @@
 %%smooth potential confinement
-function re=hmu(a,mu,delta,vz,alpha_R,dim,smoothpot,mumax,peakpos)
+function re=hmu(a,mu,delta,vz,alpha_R,dim,smoothpot,mumax,peakpos,sigma)
 t=25/a^2;
 sx=[0,1;1,0];
 sy=[0,-1i;1i,0];
