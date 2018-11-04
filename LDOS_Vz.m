@@ -3,13 +3,13 @@ delta=0.2;
 alpha=5;
 x=1;
 % eta=1e-3;
-vzlist=linspace(0,0.4,100);
+vzlist=linspace(0.3,0.3,1);
 omegalist=linspace(-.3,.3,1001);
 en=zeros(length(vzlist),length(omegalist));
-parfor i=1:length(vzlist)    
+for i=1:length(vzlist)    
     vz=vzlist(i);
     nn=zeros(1,length(omegalist));
-    for j=1:length(omegalist)
+    parfor j=1:length(omegalist)
         omega=omegalist(j);
         nn(j)=ldos(vz,x,omega,eta);
     end
