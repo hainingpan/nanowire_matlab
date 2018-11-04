@@ -1,15 +1,17 @@
 function [rev,re]=LDOS_Vz(mu,dim,smoothpot,mumax,peakpos)
 delta=0.2;
 alpha=5;
-vzlist=0:0.01:0.4;
-omegalist=-0.3:0.001:0.3;
+x=1;
+eta=1e-3;
+vzlist=linspace(0,0.4,100);
+omegalist=linspace(-.3,.3,1001);
 en=zeros(length(vzlist),length(omegalist));
 parfor i=1:length(vzlist)    
     vz=vzlist(i);
     nn=zeros(1,length(omegalist));
     for j=1:length(omegalist)
         omega=omegalist(j);
-        nn(j)=ldos(vz,1,omega,1e-5);
+        nn(j)=ldos(vz,x,omega,eta);
     end
     en(i,:)=nn;
 end
@@ -21,7 +23,7 @@ fn_alpha=strcat('a',num2str(alpha));
 fn_wl=strcat('L',num2str(dim));
 fn_smoothpot=num2str(smoothpot);
 fn_mumax=strcat('mx',num2str(mumax));
-fn_pos=strcat('x',num2str(x));
+fn_pos=strcat('x',num2str(dim));
 if (strcmp(smoothpot,'lorentz')||strcmp(smoothpot,'lorentzsigmoid'))
     fn_peakpos=strcat('pk',num2str(peakpos));
 else
