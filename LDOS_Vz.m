@@ -24,13 +24,14 @@ fn_smoothpot=num2str(smoothpot);
 fn_mumax=strcat('mx',num2str(mumax));
 fn_pos=strcat('x',num2str(x));
 fn_sigma=strcat('sg',num2str(sigma));
+fn_range=strcat('-',num2str(vzlist(end)),',',num2str(omegalist(end)),'-');
 %  fn_delta=strcat('eta',num2str(delta));
 if (strcmp(smoothpot,'lorentz')||strcmp(smoothpot,'lorentzsigmoid'))
     fn_peakpos=strcat('pk',num2str(peakpos));
 else
     fn_peakpos='';
 end
-fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_smoothpot,fn_mumax,fn_peakpos,fn_pos,fn_sigma);
+fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_smoothpot,fn_mumax,fn_peakpos,fn_pos,fn_sigma,fn_range);
 save(strcat('LDOS',fn,'.dat'),'re','-ascii');
 surf(vzlist,omegalist,en','edgecolor','none');colorbar;view(2);
 
