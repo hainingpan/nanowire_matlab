@@ -1,8 +1,8 @@
 function [rev,re]=LDOS_Vz(mu,dim,smoothpot,mumax,peakpos)
 delta=0.2;
 alpha=5;
-vzlist=0:0.01:0.4;
-omegalist=-0.3:0.01:0.3;
+vzlist=0:0.001:0.4;
+omegalist=-0.3:0.001:0.3;
 en=zeros(length(vzlist),length(omegalist));
 for i=1:length(vzlist)    
     vz=vzlist(i);
