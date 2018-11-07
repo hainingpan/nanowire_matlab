@@ -2,7 +2,7 @@ function LDOS_x(mu,dim,smoothpot,mumax,peakpos,sigma,vz)
 Delta=0.2;
 alpha=5;
 delta=1e-3;
-omegalist=linspace(-.3,.3,200);
+omegalist=linspace(-.3,.3,400);
 en=zeros(length(omegalist),dim);
 parfor i=1:length(omegalist)
     omega=omegalist(i);
