@@ -3,7 +3,7 @@ function [rev,re]=spec0(a,mu,dim,smoothpot,mumax,peakpos,sigma)
 % a=1;
 delta=0.2;
 alpha=5;
-vzlist=0:0.01:4;
+vzlist=0:0.01:6;
 nv=60;
 en=zeros(nv,length(vzlist));
 for i=1:length(vzlist)
@@ -31,6 +31,6 @@ save(strcat(fn,'.dat'),'re','-ascii');
 plot(vzlist,en)
 xlabel('V_Z(meV)')
 ylabel('V_{bias}(meV)')
-axis([0,4,-.3,.3])
+axis([0,vzlist(end),-.3,.3])
 saveas(gcf,strcat(fn,'.png'))
 end

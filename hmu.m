@@ -22,6 +22,8 @@ switch smoothpot
         mulist=mumax*1.0./(((site-peakpos*dim)*a).^2+.5)+mu;
     case 'lorentzsigmoid'
         mulist=(mumax*1.0./(((site-peakpos*dim)*a).^2+.5)+(4-mu)/2./(exp(-((site-0.5*dim)*a))+1))+mu;
+    case 'exp'
+        mulist=(mumax*exp(-(site*a).^2/(2*sigma^2)))+mu;
 end      
 diagmulist=spdiags(mulist,0,dim,dim);
 re=kron(sz,(kron(eye(2),-t*band11sm+(2*t)*eyesm-diagmulist)+kron(sy,1i*alpha*band1m1sm)))+kron(eye(2),kron(sz,vz*eyesm))+kron(sx,kron(eye(2),delta*eyesm));
