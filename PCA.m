@@ -1,12 +1,14 @@
 norsp=normalize(sp);
 sum=0;
-parfor i=1:length(norsp)
+m=length(vzlist);
+parfor i=1:m
+%     disp(i);
     sum=sum+norsp(i,:).'*norsp(i,:);
 end
-sum=sum/length(norsp);
-[v,d]=eigs(sum,1);
+sum=sum/m;
+[v,d]=eigs(sum,2);
 y=norsp*v;
-figure;
+% figure;
 % scatter(y(:,1),y(:,2),[],vzlist)
-scatter(vzlist,y);
+% scatter(vzlist,y);
 % scatter(y(:,1),y(:,2));
