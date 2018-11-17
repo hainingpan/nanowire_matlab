@@ -19,6 +19,6 @@ fn_wl=strcat('L',num2str(dim));
 fn_range=strcat('-',num2str(omegalist(end)),'-');
 fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_range);
 % save(strcat('LDOS',fn,'.dat'),'re','-ascii');
-% plot(omegalist,nn);
+plot(omegalist,nn);
 % saveas(gcf,strcat('LDOS',fn,'.png'))
 end
