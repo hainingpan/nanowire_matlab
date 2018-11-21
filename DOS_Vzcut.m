@@ -1,14 +1,14 @@
 %%DOS Vz cut
-function re=DOS_Vzcut(mu,dim,numdis,v,vz)
+function re=DOS_Vzcut(mu,dim,v,vz)
 Delta=0.2;
 alpha=5;
 delta=1e-3;
 omegalist=linspace(-.3,.3,100);
 nn=zeros(1,length(omegalist));
-pos=randperm(dim,numdis);
+vimp=v*randn(dim,1);
 parfor j=1:length(omegalist)
     omega=omegalist(j);
-    nn(j)=dosdis(mu,Delta,vz,alpha,dim,pos,v,omega,delta);
+    nn(j)=dosdis(mu,Delta,vz,alpha,dim,vimp,omega,delta);
 end
 re=nn;
 rev=omegalist;

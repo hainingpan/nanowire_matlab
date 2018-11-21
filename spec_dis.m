@@ -1,15 +1,16 @@
 %%spectrum for disorder
-function [rev,re]=spec_dis(a,mu,dim,numdis,v)
+function [rev,re]=spec_dis(a,mu,dim,v)
 % a=1;
 delta=0.2;
 alpha=5;
 vzlist=0:0.01:2;
 nv=60;
 en=zeros(nv,length(vzlist));
-pos=randperm(dim,numdis);
+% pos=randperm(dim,numdis);
+vimp=v*randn(dim,1);
 for i=1:length(vzlist)
     vz=vzlist(i);
-    ham=hdis(a,mu,delta,vz,alpha,dim,pos,v);
+    ham=hdis(a,mu,delta,vz,alpha,dim,vimp);
     eigo=eigs(ham,nv,0,'Tolerance',1e-5,'MaxIterations',20000);
     en(:,i)=sort(eigo(1:nv));
 end
@@ -19,8 +20,9 @@ fn_mu=strcat('m',num2str(mu));
 fn_Delta=strcat('D',num2str(delta));
 fn_alpha=strcat('a',num2str(alpha));
 fn_wl=strcat('L',num2str(dim));
-fn_num=strcat('N',num2str(numdis));
-fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_num);
+% fn_num=strcat('N',num2str(numdis));
+fn_v=strcat('v',num2str(v));
+fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_v);
 save(strcat(fn,'.dat'),'re','-ascii');
 plot(vzlist,en)
 xlabel('V_Z(meV)')
