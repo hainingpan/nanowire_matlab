@@ -1,5 +1,5 @@
 %%spectrum for disorder
-function [rev,re]=spec_dis(a,mu,dim,numdis)
+function [rev,re]=spec_dis(a,mu,dim,numdis,v)
 % a=1;
 delta=0.2;
 alpha=5;
@@ -9,7 +9,7 @@ en=zeros(nv,length(vzlist));
 pos=randperm(dim,numdis);
 for i=1:length(vzlist)
     vz=vzlist(i);
-    ham=hdis(a,mu,delta,vz,alpha,dim,pos);
+    ham=hdis(a,mu,delta,vz,alpha,dim,pos,v);
     eigo=eigs(ham,nv,0,'Tolerance',1e-5,'MaxIterations',20000);
     en(:,i)=sort(eigo(1:nv));
 end
