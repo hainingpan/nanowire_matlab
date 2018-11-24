@@ -1,5 +1,6 @@
 vzlist=[0.1,0.2,0.3,0.4];
-disorderlist=[0,0.1,0.5,1,2,3,5,10,20,30];
+% disorderlist=[0,0.1,0.5,1,2,3,5,10,20,30];
+disorderlist=[40,60,80,100,150,200,300];
 for ii=1:length(vzlist)
     vz=vzlist(ii);
     dosstore=zeros(1000,100);
