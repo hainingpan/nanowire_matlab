@@ -7,13 +7,14 @@ y=PCAn(x,2); %PCA
 
 label=kmeans(y,3); %kmeans
 
+kk=3;%% number of classes
 %SVM
-SVMModels = cell(3,1);
+SVMModels = cell(kk,1);
 classes = unique(label);
 
 for j = 1:numel(classes)
     indx=(label==classes(j));
-    SVMModels{j} = fitcsvm( pr(:,[1,3]),indx,'ClassNames',[false true],'KernelFunction','rbf','Standardize',true);
+    SVMModels{j} = fitcsvm( pr(:,[1,kk]),indx,'ClassNames',[false true],'KernelFunction','rbf','Standardize',true);
 end
 
 %predict
@@ -33,7 +34,7 @@ end
 %Visualization
 [~,maxScore] = max(Scores,[],2);
 figure;
-h(1:3) = gscatter(prGrid(:,1),prGrid(:,2),maxScore,[0 0 1;1 1 0 ; 0.0 0.5 1]);
+h(1:kk) = gscatter(prGrid(:,1),prGrid(:,2),maxScore,[0 0 1;1 1 0 ; 0.0 0.5 1]);
 hold on
-h(4:6) = gscatter(pr(:,1),pr(:,3),label);
+h(kk+1:2*kk) = gscatter(pr(:,1),pr(:,kk),label);
 axis tight
