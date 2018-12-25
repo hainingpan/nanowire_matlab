@@ -19,10 +19,10 @@ fn_mu=strcat('m',num2str(mu));
 fn_Delta=strcat('D',num2str(delta));
 fn_alpha=strcat('a',num2str(alpha));
 fn_wl=strcat('L',num2str(dim));
-fn_mumax=strcat('mumax',num2str(mumax));
+fn_mumax=strcat('mx',num2str(mumax));
 fn_l0=strcat('l',num2str(l0));
 % fn_num=strcat('N',num2str(numdis));
-fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_mumax,fn_l0);
+fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_mumax,fn_l0,fn_wl);
 save(strcat(fn,'.dat'),'re','-ascii');
 plot(vzlist,en)
 xlabel('V_Z(meV)')
