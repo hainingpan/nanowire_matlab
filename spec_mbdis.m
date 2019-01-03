@@ -7,6 +7,7 @@ alpha=5;
 vzlist=linspace(0,2.048*1.5,100);
 nv=80;
 en=zeros(nv,length(vzlist));
+epsilon=0.75;
 % pos=randperm(dim,numdis);
 if vimp==0
     vimp=v*randn(dim,1);
@@ -32,7 +33,7 @@ xlabel('V_Z(meV)')
 ylabel('V_{bias}(meV)')
 axis([0,vzlist(end),-.3,.3])
 line([sqrt(mu^2+delta^2),sqrt(mu^2+delta^2)],[-0.3,0.3]);
-line([sqrt((mu-1)^2+delta^2),sqrt((mu-1)^2+delta^2)],[-0.3,0.3])
+line([sqrt((mu-epsilon)^2+delta^2),sqrt((mu-epsilon)^2+delta^2)],[-0.3,0.3])
 
 saveas(gcf,strcat(fn,'.png'))
 end
