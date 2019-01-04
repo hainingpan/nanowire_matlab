@@ -3,7 +3,7 @@ function [rev,re]=spec_qd(a,mu,dim,mumax,l0)
 % a=1;
 delta=0.2;
 alpha=5;
-vzlist=linspace(0,2.048,100);
+vzlist=linspace(0,2.048*1,100);
 nv=80;
 en=zeros(nv,length(vzlist));
 

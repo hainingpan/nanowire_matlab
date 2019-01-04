@@ -7,7 +7,7 @@ alpha=5;
 vzlist=linspace(0,2.048*1.5,100);
 nv=80;
 en=zeros(nv,length(vzlist));
-epsilon=0.75;
+epsilon=1;
 % pos=randperm(dim,numdis);
 if vimp==0
     vimp=v*randn(dim,1);
