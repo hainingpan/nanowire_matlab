@@ -32,5 +32,6 @@ plot(vzlist,en)
 xlabel('V_Z(meV)')
 ylabel('V_{bias}(meV)')
 axis([0,vzlist(end),-.3,.3])
+line([sqrt(mu^2+delta^2),sqrt(mu^2+delta^2)],[-0.3,0.3])
 saveas(gcf,strcat(fn,'.png'))
 end
