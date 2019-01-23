@@ -7,14 +7,14 @@ alpha=5;
 vzlist=linspace(0,2.048*1.5,100);
 nv=80;
 en=zeros(nv,length(vzlist));
-epsilon=1;
+epsilon=0.75;
 % pos=randperm(dim,numdis);
 if vimp==0
     vimp=v*randn(dim,1);
 end
-parfor i=1:length(vzlist)
+for i=1:length(vzlist)
     vz=vzlist(i);
-    ham=hmbdis(a,mu,delta,vz,alpha,deltac,dim,vimp);
+    ham=hmbdis(a,mu,delta,vz,alpha,deltac,epsilon,dim,vimp);
     eigo=eigs(ham,nv,0,'Tolerance',1e-5,'MaxIterations',20000);
     en(:,i)=sort(eigo(1:nv));
 end

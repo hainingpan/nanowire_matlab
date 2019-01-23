@@ -3,14 +3,14 @@ function [rev,re,vimp]=spec_dis(a,mu,dim,v,vimp)
 % a=1;
 delta=0.2;
 alpha=5;
-vzlist=linspace(0,2.048*3,100);
+vzlist=linspace(0,2.048,100);
 nv=80;
 en=zeros(nv,length(vzlist));
 % pos=randperm(dim,numdis);
 if vimp==0
     vimp=v*randn(dim,1);
 end
-parfor i=1:length(vzlist)
+for i=1:length(vzlist)
     vz=vzlist(i);
     ham=hdis(a,mu,delta,vz,alpha,dim,vimp);
     eigo=eigs(ham,nv,0,'Tolerance',1e-5,'MaxIterations',20000);

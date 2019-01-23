@@ -1,5 +1,5 @@
 %%for single band 
-function [rev,re]=spec0(a,mu,dim,smoothpot,mumax,peakpos,sigma)
+function [rev,re]=spec_inhom(a,mu,dim,smoothpot,mumax,peakpos,sigma)
 % a=1;
 delta=0.2;
 alpha=5;

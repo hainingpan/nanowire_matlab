@@ -3,11 +3,11 @@ function [rev,re]=spec_qd(a,mu,dim,mumax,l0)
 % a=1;
 delta=0.2;
 alpha=5;
-vzlist=linspace(0,2.048,100);
+vzlist=linspace(0,2.048*1.5,100);
 nv=80;
 en=zeros(nv,length(vzlist));
 
-parfor i=1:length(vzlist)
+for i=1:length(vzlist)
     vz=vzlist(i);
     ham=hqd(a,mu,delta,vz,alpha,mumax,l0,dim);
     eigo=eigs(ham,nv,0,'Tolerance',1e-5,'MaxIterations',20000);
