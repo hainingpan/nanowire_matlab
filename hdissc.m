@@ -1,4 +1,4 @@
-%% disdorder & collapsing superconducting gap (deltalist=delta_0*sqrt(1-(VZ/Vc)^2))
+%% disdorder & self energy & collapsing superconducting gap (deltalist=delta_0*sqrt(1-(VZ/Vc)^2))
 function re=hdissc(a,mu,delta,vz,alpha_R,dim,vimp,vc)
 t=25/a^2;
 sx=[0,1;1,0];
