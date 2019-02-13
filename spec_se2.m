@@ -1,13 +1,13 @@
 %%for self energy with delta_0 collapse at vzc
 function [rev,re]=spec_se2(a,mu,delta,vzc,alpha,gamma,dim)
 % a=1;
-vzlist=linspace(0,vzc*0.999,100);
+vzlist=linspace(0,vzc*0.999,200);
 nv=10;
 en=zeros(nv,length(vzlist));
 deltalist=delta*(1-(vzlist/vzc).^2);
 parfor i=1:length(vzlist)
     vz=vzlist(i);
-    disp(i);
+%     disp(i);
     deltac=deltalist(i);
     for n=1:nv
         en(n,i)=iter(a,mu,deltac,vz,alpha,gamma,n,dim);

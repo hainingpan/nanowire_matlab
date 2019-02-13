@@ -1,12 +1,12 @@
 %%for self energy
 function [rev,re]=spec_se(a,mu,delta,alpha,gamma,dim)
 % a=1;
-vzlist=linspace(0,0.5,100);
+vzlist=linspace(0,0.5,200);
 nv=10;
 en=zeros(nv,length(vzlist));
 parfor i=1:length(vzlist)
     vz=vzlist(i);
-    disp(i);
+%     disp(i);
     for n=1:nv
         en(n,i)=iter(a,mu,delta,vz,alpha,gamma,n,dim);
     end
