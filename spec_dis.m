@@ -10,7 +10,7 @@ en=zeros(nv,length(vzlist));
 if vimp==0
     vimp=v*randn(dim,1);
 end
-for i=1:length(vzlist)
+parfor i=1:length(vzlist)
     vz=vzlist(i);
     ham=hdis(a,mu,delta,vz,alpha,dim,vimp);
     eigo=eigs(ham,nv,0,'Tolerance',1e-5,'MaxIterations',20000);
@@ -26,6 +26,7 @@ fn_wl=strcat('L',num2str(dim));
 fn_v=strcat('v',num2str(v));
 fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_v);
 save(strcat(fn,'.dat'),'re','-ascii');
+figure;
 plot(vzlist,en)
 xlabel('V_Z(meV)')
 ylabel('V_{bias}(meV)')

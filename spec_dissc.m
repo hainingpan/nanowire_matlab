@@ -1,3 +1,4 @@
+%% WRONG!!
 %%spectrum for disorder & collapsing superconducting gap (deltalist=delta_0*sqrt(1-(VZ/Vc)^2))
 function [rev,re,vimp]=spec_dissc(a,mu,dim,v,vimp,vc)
 % a=1;

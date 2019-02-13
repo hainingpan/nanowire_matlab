@@ -1,16 +1,17 @@
-%%for self energy with delta_0 collapse at vzc
-function [rev,re]=spec_se2(a,mu,delta,vzc,alpha,gamma,dim)
+%%for self energy & disorder
+function [rev,re]=spec_sedis(a,mu,delta,alpha,gamma,vc,dim,v,vimp)
 % a=1;
-vzlist=linspace(0,vzc*0.999,200);
-nv=10;
+vzlist=linspace(0,2,100);
+nv=2;
 en=zeros(nv,length(vzlist));
-deltalist=delta*(1-(vzlist/vzc).^2);
+if vimp==0
+    vimp=v*randn(dim,1);
+end
 parfor i=1:length(vzlist)
     vz=vzlist(i);
 %     disp(i);
-    deltac=deltalist(i);
     for n=1:nv
-        en(n,i)=iter(a,mu,deltac,vz,alpha,gamma,n,dim);
+        en(n,i)=iter_dis(a,mu,delta,vz,alpha,gamma,vc,n,dim,vimp);
     end
 end
 re=en;
@@ -20,11 +21,15 @@ fn_Delta=strcat('D',num2str(delta));
 fn_alpha=strcat('a',num2str(alpha));
 fn_wl=strcat('L',num2str(dim));
 fn_gamma=strcat('g',num2str(gamma));
-fn_vzc=strcat('vzc',num2str(vzc));
+fn_v=strcat('v',num2str(v));
+fn_vc=strcat('vc',num2str(vc));
 
-fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_gamma,fn_vzc);
+
+fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_gamma,fn_v,fn_vc);
 save(strcat(fn,'.dat'),'re','-ascii');
 plot(vzlist,en)
+hold on 
+plot(vzlist,-en)
 xlabel('V_Z(meV)')
 ylabel('V_{bias}(meV)')
 axis([0,vzlist(end),-.3,.3])
