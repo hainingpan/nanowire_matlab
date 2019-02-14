@@ -1,5 +1,5 @@
 %%for self energy & disorder
-function [rev,re]=spec_sedis(a,mu,delta,alpha,gamma,vc,dim,v,vimp)
+function [rev,re,vimp]=spec_sedis(a,mu,delta,alpha,gamma,vc,dim,v,vimp)
 % a=1;
 vzlist=linspace(0,2,100);
 nv=2;
@@ -27,6 +27,7 @@ fn_vc=strcat('vc',num2str(vc));
 
 fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_gamma,fn_v,fn_vc);
 save(strcat(fn,'.dat'),'re','-ascii');
+figure;
 plot(vzlist,en)
 hold on 
 plot(vzlist,-en)

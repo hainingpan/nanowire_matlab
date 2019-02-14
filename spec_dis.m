@@ -27,7 +27,9 @@ fn_v=strcat('v',num2str(v));
 fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_v);
 save(strcat(fn,'.dat'),'re','-ascii');
 figure;
-plot(vzlist,en)
+plot(vzlist,en);
+hold on 
+plot(vzlist,-en);
 xlabel('V_Z(meV)')
 ylabel('V_{bias}(meV)')
 axis([0,vzlist(end),-.3,.3])
