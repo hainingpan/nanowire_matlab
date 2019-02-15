@@ -2,11 +2,11 @@
 function [rev,re]=spec_inhom(a,mu,dim,smoothpot,mumax,peakpos,sigma)
 % a=1;
 delta=0.2;
-alpha=0.1;
+alpha=5;
 vzlist=0:0.01:1.024*0.5;
 nv=60;
 en=zeros(nv,length(vzlist));
-for i=1:length(vzlist)
+parfor i=1:length(vzlist)
     vz=vzlist(i);
     ham=hmu(a,mu,delta,vz,alpha,dim,smoothpot,mumax,peakpos,sigma);
     eigo=eigs(ham,nv,0,'Tolerance',1e-5,'MaxIterations',20000);
