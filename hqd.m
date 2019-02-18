@@ -12,7 +12,7 @@ diagdelta=spdiags(deltalist,0,dim,dim);
 eyesm=speye(dim);
 % mulist=mu*ones(dim,1);
 x=(1:l0)';
-mulist=[mu-mumax*exp(-x.*x/(l0*l0));mu*ones(dim-l0,1)];
+mulist=[mu-mumax*exp(-x.*x/(2*l0*l0));mu*ones(dim-l0,1)];
 diagmulist=spdiags(mulist,0,dim,dim);
 re=kron(sz,(kron(eye(2),-t*band11sm+(2*t)*eyesm-diagmulist)+kron(sy,1i*alpha*band1m1sm)))+kron(eye(2),kron(sz,vz*eyesm))+kron(sx,kron(eye(2),diagdelta));
 end
