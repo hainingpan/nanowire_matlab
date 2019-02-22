@@ -1,5 +1,5 @@
-function re=iter_qd(a,mu,delta,vz,alpha_R,gamma,vc,mumax,l0,n,dim)
-omega=0;
+function re=iter_qd(a,mu,delta,vz,alpha_R,gamma,vc,mumax,l0,n,dim,omega)
+% omega=0;
 omega_n=hseqd(a,mu,delta,vz,alpha_R,gamma,vc,omega,n,0,mumax,l0,dim);
 % k=(omega_n-0)/(0-delta);
 % beta=-k;
