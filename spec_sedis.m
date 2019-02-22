@@ -1,5 +1,5 @@
 %%for self energy & disorder
-function [rev,re,vimp]=spec_sedis(a,mu,delta,alpha,gamma,vc,dim,v,vimp)
+function [rev,re,dosmap,vimp]=spec_sedis(a,mu,delta,alpha,gamma,vc,dim,v,vimp)
 % a=1;
 vzlist=linspace(0,2,101);
 nv=4;
@@ -7,14 +7,18 @@ en=zeros(nv,length(vzlist));
 if vimp==0
     vimp=v*randn(dim,1);
 end
+enlist=linspace(0,.2,201);
+dosmap=zeros(nv,length(vzlist));
 for i=1:length(vzlist)
     vz=vzlist(i);
     disp(i);
-    for n=1:nv
-        if i==1
-            en(n,i)=iter_dis(a,mu,delta,vz,alpha,gamma,vc,n,dim,vimp,0);
-        else
-            en(n,i)=iter_dis(a,mu,delta,vz,alpha,gamma,vc,n,dim,vimp,en(n,i-1));
+    dos=arrayfun(@(w) dossedis(1,.2,vz,5,.2,3,300,vimp,w,1e-3),enlist);
+    [pk,loc]=findpeaks(dos);
+    init=enlist(loc);
+    dosmap(:,i)=init(1:4);
+    for n=1:nv        
+        if n<=length(init)
+            en(n,i)=iter_dis(a,mu,delta,vz,alpha,gamma,vc,n,dim,vimp,init(n));
         end
     end
 end
