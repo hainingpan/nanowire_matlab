@@ -1,17 +1,21 @@
 %%for self energy & disorder
 function [rev,re,vimp]=spec_sedis(a,mu,delta,alpha,gamma,vc,dim,v,vimp)
 % a=1;
-vzlist=linspace(0,1,11);
+vzlist=linspace(0,2,101);
 nv=4;
 en=zeros(nv,length(vzlist));
 if vimp==0
     vimp=v*randn(dim,1);
 end
-parfor i=1:length(vzlist)
+for i=1:length(vzlist)
     vz=vzlist(i);
-%     disp(i);
+    disp(i);
     for n=1:nv
-        en(n,i)=iter_dis(a,mu,delta,vz,alpha,gamma,vc,n,dim,vimp);
+        if i==1
+            en(n,i)=iter_dis(a,mu,delta,vz,alpha,gamma,vc,n,dim,vimp,0);
+        else
+            en(n,i)=iter_dis(a,mu,delta,vz,alpha,gamma,vc,n,dim,vimp,en(n,i-1));
+        end
     end
 end
 re=en;

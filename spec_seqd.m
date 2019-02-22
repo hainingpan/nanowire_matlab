@@ -1,15 +1,15 @@
 %%for self energy & quantum dots
 function [rev,re]=spec_seqd(a,mu,delta,alpha,gamma,vc,mumax,l0,dim)
 % a=1;
-vzlist=linspace(0,2,101);
+vzlist=linspace(0,1,11);
 nv=4;
 en=zeros(nv,length(vzlist));
 
 parfor i=1:length(vzlist)
     vz=vzlist(i);
-%     disp(i);
+    disp(i);
     for n=1:nv
-        en(n,i)=iter_seqd(a,mu,delta,vz,alpha,gamma,vc,mumax,l0,n,dim);
+        en(n,i)=iter_qd(a,mu,delta,vz,alpha,gamma,vc,mumax,l0,n,dim);
     end
 end
 re=en;
