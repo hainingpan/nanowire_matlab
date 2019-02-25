@@ -1,8 +1,8 @@
 %%for self energy & disorder
-function [rev,re,dosmap,vimp]=spec_sedis(a,mu,delta,alpha,gamma,vc,dim,v,vimp)
+function [rev,dosmap,vimp]=spec_sedis_sp(a,mu,delta,alpha,gamma,vc,dim,v,vimp)
 % a=1;
-vzlist=linspace(0,2,101);
-nv=8;
+vzlist=linspace(0,2,201);
+nv=20;
 en=zeros(nv,length(vzlist));
 if vimp==0
     vimp=v*randn(dim,1);
@@ -10,8 +10,8 @@ end
 dosmap=zeros(nv,length(vzlist));
 parfor i=1:length(vzlist)
     vz=vzlist(i);
-    disp(i);
-    enlist=linspace(-.3,.3,201);
+%     disp(i);
+    enlist=linspace(-.3,.3,401);
     dos=arrayfun(@(w) dossedis(a,mu,vz,alpha,gamma,vc,dim,vimp,w,1e-3),enlist);
     [~,loc]=findpeaks(dos);
     init=enlist(loc);
@@ -21,15 +21,7 @@ parfor i=1:length(vzlist)
         tmp=[tmp,zeros(1,nv-num_init)];
     end
     dosmap(:,i)=tmp(:);
-%     for n=1:nv        
-%         if n<=length(init)
-%             en(n,i)=iter_dis(a,mu,delta,vz,alpha,gamma,vc,n,dim,vimp,init(n));
-%         else
-%             en(n,i)=iter_dis(a,mu,delta,vz,alpha,gamma,vc,n,dim,vimp,0);
-%         end
-%     end
 end
-re=en;
 rev=vzlist;
 fn_mu=strcat('m',num2str(mu));
 fn_Delta=strcat('D',num2str(delta));
@@ -40,12 +32,17 @@ fn_v=strcat('v',num2str(v));
 fn_vc=strcat('vc',num2str(vc));
 
 
+
 fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_gamma,fn_v,fn_vc);
-save(strcat(fn,'.dat'),'re','-ascii');
+save(strcat(fn,'.dat'),'dosmap','-ascii');
+dosmap(dosmap==0)=nan;
 figure;
-plot(vzlist,en)
-hold on 
-plot(vzlist,-en)
+for i=1:nv
+    scatter(vzlist,dosmap(i,:),'b','.');
+    hold on
+end
+box on
+hold off
 xlabel('V_Z(meV)')
 ylabel('V_{bias}(meV)')
 axis([0,vzlist(end),-.3,.3])
