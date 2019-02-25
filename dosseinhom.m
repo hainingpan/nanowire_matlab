@@ -1,4 +1,4 @@
-function re=dosseinhom(mu,Delta,vz,alpha_R,gamma,vc,dim,smoothpot,mumax,peakpos,sigma,omega,delta)
+function re=dosseinhom(a,mu,Delta,vz,alpha_R,gamma,vc,dim,smoothpot,mumax,peakpos,sigma,omega,delta)
 a=1;
 [~,ham]=hsemu(a,mu,Delta,vz,alpha_R,gamma,vc,omega,1,0,dim,smoothpot,mumax,peakpos,sigma);
 K=(omega+1i*delta)*speye(4*dim)-ham;

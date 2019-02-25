@@ -1,17 +1,14 @@
-%%for self energy & disorder
-function [dosmap,rev,vimp]=spec_sedis_sp(a,mu,delta,alpha,gamma,vc,dim,v,vimp)
+%%for self energy & quantum dots
+function [dosmap,rev]=spec_seqd_sp(a,mu,delta,alpha,gamma,vc,mumax,l0,dim)
 % a=1;
-vzlist=linspace(0,2,201);
+vzlist=linspace(0,1,201);
 nv=20;
-if vimp==0
-    vimp=v*randn(dim,1);
-end
-dosmap=zeros(nv,length(vzlist));
+
 parfor i=1:length(vzlist)
     vz=vzlist(i);
-%     disp(i);
+    disp(i);
     enlist=linspace(-.3,.3,401);
-    dos=arrayfun(@(w) dossedis(a,mu,delta,vz,alpha,gamma,vc,dim,vimp,w,1e-3),enlist);
+    dos=arrayfun(@(w) dosseqd(a,mu,delta,vz,alpha,gamma,vc,mumax,l0,dim,w,1e-3),enlist);
     [~,loc]=findpeaks(dos);
     init=enlist(loc);
     num_init=min(nv,length(init));
@@ -27,21 +24,20 @@ fn_Delta=strcat('D',num2str(delta));
 fn_alpha=strcat('a',num2str(alpha));
 fn_wl=strcat('L',num2str(dim));
 fn_gamma=strcat('g',num2str(gamma));
-fn_v=strcat('v',num2str(v));
-fn_vc=strcat('vc',num2str(vc));
+fn_vc=strcat('vc',num2str(vc))*(vc~=inf);
+fn_mumax=strcat('mx',num2str(mumax));
+fn_l0=strcat('l',num2str(l0));
 
+fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_mumax,fn_l0,fn_gamma,fn_vc);
+save(strcat(fn,'.dat'),'re','-ascii');
 
-
-fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_gamma,fn_v,fn_vc);
-save(strcat(fn,'.dat'),'dosmap','-ascii');
 dosmap(dosmap==0)=nan;
 figure;
 for i=1:nv
     scatter(vzlist,dosmap(i,:),'b','.');
     hold on
 end
-box on
-hold off
+
 xlabel('V_Z(meV)')
 ylabel('V_{bias}(meV)')
 axis([0,vzlist(end),-.3,.3])

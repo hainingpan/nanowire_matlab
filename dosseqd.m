@@ -1,4 +1,4 @@
-function re=dosseqd(mu,Delta,vz,alpha_R,gamma,vc,mumax,l0,dim,omega,delta)
+function re=dosseqd(a,mu,Delta,vz,alpha_R,gamma,vc,mumax,l0,dim,omega,delta)
 a=1;
 [~,ham]=hseqd(a,mu,Delta,vz,alpha_R,gamma,vc,omega,1,0,mumax,l0,dim);
 K=(omega+1i*delta)*speye(4*dim)-ham;
