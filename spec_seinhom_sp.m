@@ -1,13 +1,14 @@
 %%for self energy & inhomogenous potential
 function [dosmap,rev]=spec_seinhom_sp(a,mu,delta,alpha,gamma,vc,dim,smoothpot,mumax,peakpos,sigma)
 % a=1;
-vzlist=linspace(0,2,101);
-nv=4;
+vzlist=linspace(0,2,201);
+nv=20;
 en=zeros(nv,length(vzlist));
 
 parfor i=1:length(vzlist)
     vz=vzlist(i);
 %     disp(i);
+    enlist=linspace(-.3,.3,401);
     dos=arrayfun(@(w) dosseinhom(a,mu,delta,vz,alpha,gamma,vc,dim,smoothpot,mumax,peakpos,sigma,w,1e-3),enlist);
     [~,loc]=findpeaks(dos);
     init=enlist(loc);
@@ -36,7 +37,7 @@ end
 
 
 fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_smoothpot,fn_mumax,fn_sigma,fn_peakpos,fn_gamma,fn_vc);
-save(strcat(fn,'.dat'),'re','-ascii');
+save(strcat(fn,'.dat'),'dosmap','-ascii');
 
 dosmap(dosmap==0)=nan;
 figure;
