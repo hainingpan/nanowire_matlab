@@ -28,6 +28,7 @@ else
 end
 fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_smoothpot,fn_mumax,fn_peakpos,fn_sigma);
 save(strcat(fn,'.dat'),'re','-ascii');
+figure;
 plot(vzlist,en)
 xlabel('V_Z(meV)')
 ylabel('V_{bias}(meV)')

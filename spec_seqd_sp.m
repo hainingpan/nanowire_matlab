@@ -37,7 +37,8 @@ for i=1:nv
     scatter(vzlist,dosmap(i,:),'b','.');
     hold on
 end
-
+box on
+hold off
 xlabel('V_Z(meV)')
 ylabel('V_{bias}(meV)')
 axis([0,vzlist(end),-.3,.3])
