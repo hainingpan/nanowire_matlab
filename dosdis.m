@@ -1,6 +1,6 @@
 %% dos vs x
-function re=dosdis(mu,Delta,Vz,alpha_R,dim,vimp,omega,delta)
-a=1;
+function re=dosdis(a,mu,Delta,Vz,alpha_R,dim,vimp,omega,delta)
+% a=1;
 ham=hdis(a,mu,Delta,Vz,alpha_R,dim,vimp);
 % G=inv(full((omega+1i*delta)*speye(4*dim)-ham)); 
 % re=-imag(trace(G))/pi;
