@@ -1,22 +1,25 @@
 %%for self energy & quantum dots
 function [dosmap,rev]=spec_seqd_sp(a,mu,delta,alpha,gamma,vc,mumax,l0,dim)
 % a=1;
-vzlist=linspace(0,2,21);
-nv=20;
+vzlist=linspace(0,2,4);
+% vzlist=0:0.5:2.05;
+
+% nv=20;
+dosmap=cell(1,length(vzlist));
 
 for i=1:length(vzlist)
     vz=vzlist(i);
     disp(i);
-    enlist=linspace(-.3,.3,41);
+    enlist=linspace(-.3,.3,401);
     dos=arrayfun(@(w) dosseqd(a,mu,delta,vz,alpha,gamma,vc,mumax,l0,dim,w,1e-3),enlist);
     [~,loc]=findpeaks(dos);
     init=enlist(loc);
-    num_init=min(nv,length(init));
-    tmp=init(1:num_init);
-    if num_init<nv
-        tmp=[tmp,zeros(1,nv-num_init)];
-    end
-    dosmap(:,i)=tmp(:);
+%     num_init=min(nv,length(init));
+%     tmp=init(1:num_init);
+%     if num_init<nv
+%         tmp=[tmp,zeros(1,nv-num_init)];
+%     end
+    dosmap{i}=init;
 end
 rev=vzlist;
 fn_mu=strcat('m',num2str(mu));
@@ -29,12 +32,20 @@ fn_mumax=strcat('mx',num2str(mumax));
 fn_l0=strcat('l',num2str(l0));
 
 fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_mumax,fn_l0,fn_gamma,fn_vc);
-save(strcat(fn,'.dat'),'dosmap','-ascii');
+% save(strcat(fn,'.dat'),'dosmap','-ascii');
 
-dosmap(dosmap==0)=nan;
+fid = fopen(strcat(fn,'.dat'),'w');
+for i=1:length(vzlist)
+    fprintf(fid,'%f ', dosmap{i});
+    fprintf(fid,'\n');
+end
+fclose(fid);
+
+% dosmap(dosmap==0)=nan;
+
 figure;
-for i=1:nv
-    scatter(vzlist,dosmap(i,:),'b','.');
+for i=1:length(vzlist)
+    scatter(ones(1,length(dosmap{i}))*vzlist(i),dosmap{i},'b','.');
     hold on
 end
 box on
