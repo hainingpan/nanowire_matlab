@@ -1,10 +1,10 @@
 %%for self energy & inhomogenous potential
 function [dosmap,rev]=spec_seinhom_sp(a,mu,delta,alpha,gamma,vc,dim,smoothpot,mumax,peakpos,sigma)
 % a=1;
-vzlist=linspace(0,2,201);
+vzlist=linspace(0,2,401);
 nv=20;
 en=zeros(nv,length(vzlist));
-
+dosmap=cell(1,length(vzlist));
 parfor i=1:length(vzlist)
     vz=vzlist(i);
 %     disp(i);
@@ -12,12 +12,12 @@ parfor i=1:length(vzlist)
     dos=arrayfun(@(w) dosseinhom(a,mu,delta,vz,alpha,gamma,vc,dim,smoothpot,mumax,peakpos,sigma,w,1e-3),enlist);
     [~,loc]=findpeaks(dos);
     init=enlist(loc);
-    num_init=min(nv,length(init));
-    tmp=init(1:num_init);
-    if num_init<nv
-        tmp=[tmp,zeros(1,nv-num_init)];
-    end
-    dosmap(:,i)=tmp(:);    
+%     num_init=min(nv,length(init));
+%     tmp=init(1:num_init);
+%     if num_init<nv
+%         tmp=[tmp,zeros(1,nv-num_init)];
+%     end
+    dosmap{i}=init(:);    
 end
 rev=vzlist;
 fn_mu=strcat('m',num2str(mu));
@@ -39,12 +39,13 @@ end
 fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_smoothpot,fn_mumax,fn_sigma,fn_peakpos,fn_gamma,fn_vc);
 save(strcat(fn,'.dat'),'dosmap','-ascii');
 
-dosmap(dosmap==0)=nan;
+% dosmap(dosmap==0)=nan;
 figure;
-for i=1:nv
-    scatter(vzlist,dosmap(i,:),'b','.');
+for i=1:length(vzlist)
+    scatter(ones(1,length(dosmap{i}))*vzlist(i),dosmap{i},'b','.');
     hold on
 end
+
 box on
 hold off
 xlabel('V_Z(meV)')
