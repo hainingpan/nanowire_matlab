@@ -1,15 +1,14 @@
 %%for self energy & quantum dots
 function [dosmap,rev]=spec_seqd_sp(a,mu,delta,alpha,gamma,vc,mumax,l0,dim)
 % a=1;
-vzlist=linspace(0,2,4);
-% vzlist=0:0.5:2.05;
-
+% vzlist=linspace(0,2,4);
+vzlist=0:0.005:2.05;
 % nv=20;
 dosmap=cell(1,length(vzlist));
 
-for i=1:length(vzlist)
+parfor i=1:length(vzlist)
     vz=vzlist(i);
-    disp(i);
+%     disp(i);
     enlist=linspace(-.3,.3,401);
     dos=arrayfun(@(w) dosseqd(a,mu,delta,vz,alpha,gamma,vc,mumax,l0,dim,w,1e-3),enlist);
     [~,loc]=findpeaks(dos);
