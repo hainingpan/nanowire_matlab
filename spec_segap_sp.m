@@ -1,19 +1,24 @@
-%%for self energy & disorder
-function [dosmap,rev,vimp]=spec_sedis_sp(a,mu,delta,alpha,gamma,vc,dim,v,vimp)
+%%for self energy & gap disorder
+function [dosmap,rev,randlist]=spec_segap_sp(a,mu,delta,alpha,gamma,vc,dim,sigma,randlist)
 % a=1;
-% vzlist=linspace(0,2,51);
-vzlist=0:0.0025:1.05;
+vzlist=linspace(0,2,101);
+% vzlist=0:0.0025:1.05;
 % nv=20;
-if vimp==0
-    vimp=v*randn(dim,1);
+if randlist==0    
+    randlist=(sigma*randn(dim,1)+1);
+    while (nnz(randlist<0)~=0)
+        randlist=(sigma*randn(dim,1)+1);
+    end
+    randlist=randlist*delta;
 end
+
 dosmap=cell(1,length(vzlist));
 parfor i=1:length(vzlist)
     vz=vzlist(i);
-%     disp(i);
+    disp(i);
     enlist=linspace(-.3,.3,401);
-    dos=arrayfun(@(w) dossedis(a,mu,delta,vz,alpha,gamma,vc,dim,vimp,w,1e-3),enlist);
-    [~,loc]=findpeaks(dos);
+    dos=arrayfun(@(w) dossegap(a,mu,delta,vz,alpha,gamma,vc,dim,randlist,w,1e-3),enlist);
+    [~,loc]=findpeaks(dos,'MinPeakHeight',1);
     init=enlist(loc);
 %     num_init=min(nv,length(init));
 %     tmp=init(1:num_init);
@@ -28,7 +33,7 @@ fn_Delta=strcat('D',num2str(delta));
 fn_alpha=strcat('a',num2str(alpha));
 fn_wl=strcat('L',num2str(dim));
 fn_gamma=strcat('g',num2str(gamma));
-fn_v=strcat('v',num2str(v));
+fn_v=strcat('v',num2str(sigma));
 fn_vc=strcat('vc',num2str(vc))*(vc~=inf);
 
 
