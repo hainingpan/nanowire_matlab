@@ -1,5 +1,5 @@
-%%spectrum for alpha disorder
-function [rev,re,randlist]=spec_alphadis(a,mu,dim,sigma,randlist)
+%%spectrum for mass disorder
+function [rev,re,randlist]=spec_massdis(a,mu,dim,sigma,randlist)
 % a=1;
 delta=0.2;
 alpha=5;
@@ -9,15 +9,15 @@ en=zeros(nv,length(vzlist));
 
 
 if randlist==0    
-    randlist=(sigma*randn(dim,1)+alpha);
+    randlist=(sigma*randn(dim,1)+1);
     while (nnz(randlist<0)~=0)
-        randlist=(sigma*randn(dim,1)+alpha);
+        randlist=(sigma*randn(dim,1)+1);
     end
 end
 
 for i=1:length(vzlist)
     vz=vzlist(i);
-    ham=halphadis(a,mu,delta,vz,dim,randlist);
+    ham=hmassdis(a,mu,delta,vz,alpha,dim,randlist);
     eigo=eigs(ham,nv,0,'Tolerance',1e-5,'MaxIterations',20000);
     en(:,i)=sort(eigo(1:nv));
 end
