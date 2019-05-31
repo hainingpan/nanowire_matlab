@@ -4,12 +4,14 @@ function [dosmap,rev,randlist]=spec_segap_sp(a,mu,delta,alpha,gamma,vc,dim,sigma
 vzlist=linspace(0,2,101);
 % vzlist=0:0.0025:1.05;
 % nv=20;
+
+%%BE CAREFUL OF THE DEFINITION OF RANDLIST!!! 
 if randlist==0    
     randlist=(sigma*randn(dim,1)+1);
     while (nnz(randlist<0)~=0)
         randlist=(sigma*randn(dim,1)+1);
     end
-    randlist=randlist*delta;
+    randlist=randlist*delta; %THIS IS NOT CONSISTENT WITH PYTHON CODE
 end
 
 dosmap=cell(1,length(vzlist));
