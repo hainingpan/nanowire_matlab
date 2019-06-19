@@ -6,19 +6,41 @@ vzlist=0:0.0025:1.05;
 % nv=20;
 dosmap=cell(1,length(vzlist));
 
-parfor i=1:length(vzlist)
+for i=1:length(vzlist)
     vz=vzlist(i);
 %     disp(i);
     enlist=linspace(-.3,.3,401);
     dos=arrayfun(@(w) dosseqd(a,mu,delta,vz,alpha,gamma,vc,mumax,l0,dim,w,1e-3),enlist);
     [~,loc]=findpeaks(dos);
     init=enlist(loc);
-%     num_init=min(nv,length(init));
-%     tmp=init(1:num_init);
-%     if num_init<nv
-%         tmp=[tmp,zeros(1,nv-num_init)];
+
+% %     num_init=min(nv,length(init));
+% %     tmp=init(1:num_init);
+% %     if num_init<nv
+% %         tmp=[tmp,zeros(1,nv-num_init)];
+% %     end
+
+%     func=@(w) log(dosseqd(a,mu,delta,vz,alpha,gamma,vc,mumax,l0,dim,w,1e-3)+100);
+%     engrid=linspace(-.3,.3,11);
+%     x=[];
+%     y=[];
+%     for j=1:10
+%         opt.min=engrid(j);
+%         opt.max=engrid(j+1);
+%         opt.maxrecursion=3;
+%         opt.points=12;
+%         [xlist,ylist]=adaptive(func,opt);
+%         x=[x,xlist];
+%         y=[y,ylist];
 %     end
-    dosmap{i}=init;
+    
+%     [xorder,order]=sort(x);
+%     yorder=y(order);
+%     [pks1,loc1]=findpeaks(yorder);
+%     init=xorder(loc1);
+    
+    dosmap{i}=init;    
+
 end
 rev=vzlist;
 fn_mu=strcat('m',num2str(mu));

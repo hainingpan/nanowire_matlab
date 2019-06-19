@@ -31,11 +31,13 @@ end
 dylist=diff(ylist);
 l1sq=dx^2+dylist(1:end-1).^2;
 l2sq=dx^2+dylist(2:end).^2;
-queue=(l1sq+l2sq-2*sqrt(l1sq.*l2sq)*cos(opt.angle)>=diff(dylist).^2);
+% queue=(l1sq+l2sq-2*sqrt(l1sq.*l2sq)*cos(opt.angle)<=diff(dylist).^2);
+queue=(l1sq+l2sq-2*sqrt(l1sq.*l2sq)*cos(opt.angle)<=diff(dylist).^2)&(diff(dylist)<=0);
+
 % xmin=opt.min;
 % xmax=opt.max;
 for i=1:length(queue)
-    if queue(i)==0
+    if queue(i)==1
         % for each i-th point, if the second deriviative exceeds threshold
         % angle, we just refine it to grid on [i-1/2,i+1/2]. if they are on
         % the boundary, [min,i+1/2] or [i-1/2,max] will be adopted.
@@ -46,9 +48,12 @@ for i=1:length(queue)
         if i~=length(queue)
             opt2.max=(opt.max-opt.min)/(length(queue)+1)*(i+1/2)+opt.min;
         end
-        [xlist2,ylist2]=adaptive(func,opt2);
-        xlist=[xlist,xlist2];
-        ylist=[ylist,ylist2];
+        opt2.maxrecursion=opt.maxrecursion-1;
+        if opt2.maxrecursion>0
+            [xlist2,ylist2]=adaptive(func,opt2);
+            xlist=[xlist,xlist2];
+            ylist=[ylist,ylist2];
+        end
     end
 end 
 end
