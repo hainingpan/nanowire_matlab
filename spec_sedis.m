@@ -8,7 +8,7 @@ if vimp==0
     vimp=v*randn(dim,1);
 end
 dosmap=zeros(nv,length(vzlist));
-parfor i=1:length(vzlist)
+for i=1:length(vzlist)
     vz=vzlist(i);
     disp(i);
     enlist=linspace(-.3,.3,201);

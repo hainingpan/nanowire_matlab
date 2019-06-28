@@ -11,6 +11,6 @@ eyesm=speye(dim);
 % mulist=mu*ones(dim,1);
 % mulist=mu-randlist;
 diagvzlist=spdiags(randlist,0,dim,dim);
-re=kron(sz,(kron(eye(2),-t*band11sm+(2*t-mu)*eyesm)+kron(sy,1i*alpha*band1m1sm)))+kron(eye(2),kron(sz,diagvzlist))+kron(sx,kron(eye(2),delta*eyesm));
+re=kron(sz,(kron(eye(2),-t*band11sm+(2*t-mu)*eyesm)+kron(sy,1i*alpha*band1m1sm)))+kron(speye(2),kron(sz,diagvzlist))+kron(sx,kron(eye(2),delta*eyesm));
 end
 

@@ -1,26 +1,25 @@
 %%for self energy & gap disorder
-function [dosmap,rev,randlist]=spec_segap_sp(a,mu,delta,alpha,gamma,vc,dim,sigma,randlist)
+function [dosmap,rev,randlist]=spec_seg_sp(a,mu,delta,alpha,gamma,vc,dim,sigma,randlist)
 % a=1;
-vzlist=linspace(0,2,401);
-% vzlist=0:0.0025:1.05;
+% vzlist=linspace(0,2,401);
+vzlist=0:0.0025:1.05;
 % nv=20;
-
-%%BE CAREFUL OF THE DEFINITION OF RANDLIST!!! 
 if randlist==0    
     randlist=(sigma*randn(dim,1)+1);
     while (nnz(randlist<0)~=0)
         randlist=(sigma*randn(dim,1)+1);
     end
-    randlist=randlist*delta; %THIS IS NOT CONSISTENT WITH PYTHON CODE
 end
+
 
 dosmap=cell(1,length(vzlist));
 parfor i=1:length(vzlist)
     vz=vzlist(i);
+    vzrandlist=vz*randlist;
     disp(i);
     enlist=linspace(-.3,.3,401);
-    dos=arrayfun(@(w) dossegap(a,mu,delta,vz,alpha,gamma,vc,dim,randlist,w,1e-3),enlist);
-    [~,loc]=findpeaks(dos,'MinPeakHeight',30);
+    dos=arrayfun(@(w) dosseg(a,mu,delta,vz,alpha,gamma,vc,dim,vzrandlist,w,1e-3),enlist);
+    [~,loc]=findpeaks(dos,'MinPeakHeight',10);
     init=enlist(loc);
 %     num_init=min(nv,length(init));
 %     tmp=init(1:num_init);
