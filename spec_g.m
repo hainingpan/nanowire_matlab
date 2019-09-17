@@ -13,7 +13,7 @@ if randlist==0
     end
 end
 
-for i=1:length(vzlist)
+parfor i=1:length(vzlist)
     vz=vzlist(i);
     vzrandlist=vz*randlist;
     ham=hg(a,mu,delta,vzrandlist,alpha,dim);

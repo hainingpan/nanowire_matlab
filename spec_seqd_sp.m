@@ -2,17 +2,22 @@
 function [dosmap,rev]=spec_seqd_sp(a,mu,delta,alpha,gamma,vc,mumax,l0,dim)
 % a=1;
 % vzlist=linspace(0,2,4);
-vzlist=0:0.0025:1.05;
+% vzlist=0:0.025:2;
+vzlist=0:0.05:6;
+
 % nv=20;
 dosmap=cell(1,length(vzlist));
-
-for i=1:length(vzlist)
+% enlist=linspace(-.3,.3,401);
+enlist=linspace(-3,3,401);
+dosmap2=zeros(length(vzlist),length(enlist));
+parfor i=1:length(vzlist)
     vz=vzlist(i);
-%     disp(i);
-    enlist=linspace(-.3,.3,401);
+    disp(i);
+    
     dos=arrayfun(@(w) dosseqd(a,mu,delta,vz,alpha,gamma,vc,mumax,l0,dim,w,1e-3),enlist);
     [~,loc]=findpeaks(dos);
     init=enlist(loc);
+    dosmap2(i,:)=dos;
 
 % %     num_init=min(nv,length(init));
 % %     tmp=init(1:num_init);
