@@ -33,7 +33,8 @@ end
 diagmulist=spdiags(mulist,0,dim,dim);
 delta=delta*(sqrt(1-(vz/vc)^2))*(vz<vc);
 
-ham=kron(sz,(kron(eye(2),-t*band11sm+(2*t)*eyesm-diagmulist)+kron(sy,1i*alpha*band1m1sm)))+kron(eye(2),kron(sz,vz*eyesm))-gamma*real(omega/sqrt(delta^2-omega^2-1e-9i)*eye4sm+kron(sx,kron(speye(2),delta/sqrt(delta^2-omega^2-1e-9i)*eyesm)));
+ham=kron(sz,(kron(eye(2),-t*band11sm+(2*t)*eyesm-diagmulist)+kron(sy,1i*alpha*band1m1sm)))+kron(eye(2),kron(sz,vz*eyesm))...
+    -gamma*(omega/sqrt(delta^2-omega^2-sign(omega+1e-9)*1e-9i)*eye4sm+kron(sx,kron(speye(2),delta/sqrt(delta^2-omega^2-sign(omega+1e-9)*1e-9i)*eyesm)));
 %  try 
 %        eigo=eigs(ham,n,'SM','Tolerance',1e-6,'MaxIterations',10000);     
 %         if (prod(isnan(eigo))==1)
@@ -56,5 +57,6 @@ ham=kron(sz,(kron(eye(2),-t*band11sm+(2*t)*eyesm-diagmulist)+kron(sy,1i*alpha*ba
 %        end
 %  end
 %  re=(abs(eigo(n))+beta*omega)/(beta+1); 
+re=0;
 end
 

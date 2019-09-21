@@ -11,13 +11,12 @@ if randlist==0
     end
 end
 
-
+enlist=linspace(-.21,.21,1001);
 dosmap=cell(1,length(vzlist));
 parfor i=1:length(vzlist)
     vz=vzlist(i);
     vzrandlist=vz*randlist;
     disp(i);
-    enlist=linspace(-.3,.3,401);
     dos=arrayfun(@(w) dosseg(a,mu,delta,vz,alpha,gamma,vc,dim,vzrandlist,w,1e-3),enlist);
     [~,loc]=findpeaks(dos,'MinPeakHeight',10);
     init=enlist(loc);
@@ -26,7 +25,8 @@ parfor i=1:length(vzlist)
 %     if num_init<nv
 %         tmp=[tmp,zeros(1,nv-num_init)];
 %     end
-    dosmap{i}=init;
+    dc=delta*sqrt(1-(vz/vc)^2);
+    dosmap{i}=init(abs(init)<dc);
 end
 rev=vzlist;
 fn_mu=strcat('m',num2str(mu));

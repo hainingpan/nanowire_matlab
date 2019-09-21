@@ -2,22 +2,19 @@
 function [dosmap,rev]=spec_seqd_sp(a,mu,delta,alpha,gamma,vc,mumax,l0,dim)
 % a=1;
 % vzlist=linspace(0,2,4);
-% vzlist=0:0.025:2;
-vzlist=0:0.05:6;
+vzlist=0:0.0025:0.95;
 
 % nv=20;
 dosmap=cell(1,length(vzlist));
-% enlist=linspace(-.3,.3,401);
-enlist=linspace(-3,3,401);
-dosmap2=zeros(length(vzlist),length(enlist));
+enlist=linspace(-.21,.21,1001);
+% dosmap2=zeros(length(vzlist),length(enlist));
 parfor i=1:length(vzlist)
     vz=vzlist(i);
-    disp(i);
-    
+    disp(i);    
     dos=arrayfun(@(w) dosseqd(a,mu,delta,vz,alpha,gamma,vc,mumax,l0,dim,w,1e-3),enlist);
     [~,loc]=findpeaks(dos);
     init=enlist(loc);
-    dosmap2(i,:)=dos;
+%     dosmap2(i,:)=dos;
 
 % %     num_init=min(nv,length(init));
 % %     tmp=init(1:num_init);
@@ -43,8 +40,8 @@ parfor i=1:length(vzlist)
 %     yorder=y(order);
 %     [pks1,loc1]=findpeaks(yorder);
 %     init=xorder(loc1);
-    
-    dosmap{i}=init;    
+    dc=delta*sqrt(1-(vz/vc)^2);
+    dosmap{i}=init(abs(init)<dc);
 
 end
 rev=vzlist;
@@ -78,7 +75,7 @@ box on
 hold off
 xlabel('V_Z(meV)')
 ylabel('V_{bias}(meV)')
-axis([0,vzlist(end),-.3,.3])
-line([sqrt(mu^2+gamma^2),sqrt(mu^2+gamma^2)],[-0.3,0.3])
+axis([0,vzlist(end),enlist(1),enlist(end)])
+line([sqrt(mu^2+gamma^2),sqrt(mu^2+gamma^2)],[enlist(1),enlist(end)])
 saveas(gcf,strcat(fn,'.png'))
 end
