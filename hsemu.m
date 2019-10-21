@@ -25,6 +25,10 @@ switch smoothpot
         mulist=(mumax*1.0./(((site-peakpos*dim)*a).^2+.5)+(4-mu)/2./(exp(-((site-0.5*dim)*a))+1))+mu;
     case 'exp'
         mulist=(mumax*exp(-(site*a).^2/(2*sigma^2)))+mu;
+        mumaxR=-1.9;
+        lR=100;
+        sigmaR=10;
+        mulist=mulist+(mumaxR*exp(-(site*a-lR).^2/(2*sigmaR^2)));
     case 'disorder'
         disorderpos=randperm(dim,peakpos);
         mulist=mu*ones(dim,1);
