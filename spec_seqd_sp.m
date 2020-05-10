@@ -1,8 +1,8 @@
 %%for self energy & quantum dots
 function [dosmap,rev]=spec_seqd_sp(a,mu,delta,alpha,gamma,vc,mumax,l0,dim)
 % a=1;
-% vzlist=linspace(0,2,4);
-vzlist=0:0.0025:0.95;
+vzlist=linspace(0,2.048,401);
+%vzlist=0:0.001:0.95;
 
 % nv=20;
 dosmap=cell(1,length(vzlist));

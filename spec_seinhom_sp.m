@@ -1,8 +1,8 @@
 %%for self energy & inhomogenous potential
 function [dosmap,rev]=spec_seinhom_sp(a,mu,delta,alpha,gamma,vc,dim,smoothpot,mumax,peakpos,sigma)
 % a=1;
-% vzlist=linspace(0,2.048,401);
-vzlist=0:0.0025:0.95;
+vzlist=linspace(0,2.048,401);
+% vzlist=0:0.001:0.95;
 % nv=20;
 enlist=linspace(-.21,.21,1001);
 dosmap=cell(1,length(vzlist));

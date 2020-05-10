@@ -1,8 +1,8 @@
 %%for self energy & gap disorder
 function [dosmap,rev,randlist]=spec_seg_sp(a,mu,delta,alpha,gamma,vc,dim,sigma,randlist)
 % a=1;
-% vzlist=linspace(0,2,401);
-vzlist=0:0.0025:1.05;
+ vzlist=linspace(0,2,401);
+%vzlist=0:0.001:1.05;
 % nv=20;
 if randlist==0    
     randlist=(sigma*randn(dim,1)+1);
