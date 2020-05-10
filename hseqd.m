@@ -11,13 +11,14 @@ band1m1sm=(spdiags([ones(dim,1) -ones(dim,1)],[-1,1],dim,dim));
 eyesm=speye(dim);
 x=(1:l0)'-1;
 mulist=[mu-mumax*exp(-x.*x/(l0*l0));mu*ones(dim-l0,1)];
-xR=(1:15)'-1;
-lR=15;
-mulist(end:-1:end-lR+1)=[mu-2.3*exp(-xR.*xR/(lR*lR))];
+%uncomment for the second QD on the right
+% xR=(1:15)'-1;
+% lR=15;
+% mulist(end:-1:end-lR+1)=[mu-2.3*exp(-xR.*xR/(lR*lR))];
 diagmulist=spdiags(mulist,0,dim,dim);
 delta=delta*(sqrt(1-(vz/vc)^2))*(vz<vc);
 deltalist=[zeros(l0,1);delta*ones(dim-l0,1)];
-deltalist(end:-1:end-lR+1)=0;
+% deltalist(end:-1:end-lR+1)=0;
 % diagdelta=spdiags(deltalist,0,dim,dim);
 % ham=kron(sz,(kron(eye(2),-t*band11sm+(2*t)*eyesm-diagmulist)+kron(sy,1i*alpha*band1m1sm)))+kron(eye(2),kron(sz,vz*eyesm))...
 %     -gamma*real(kron(speye(4),omega./sqrt(diagdelta.^2-omega^2-1e-9i))+kron(sx,kron(speye(2),diagdelta./sqrt(diagdelta.^2-omega^2-1e-9i))));
