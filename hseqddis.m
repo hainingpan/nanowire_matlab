@@ -10,8 +10,7 @@ band11sm=(spdiags(1.0*[ones(dim,1) ones(dim,1)],[-1,1],dim,dim));
 band1m1sm=(spdiags([ones(dim,1) -ones(dim,1)],[-1,1],dim,dim));
 eyesm=speye(dim);
 x=(1:l0)'-1;
-mulist=[mu-mumax*exp(-x.*x/(l0*l0));mu*ones(dim-l0,1)];
-mulist=mu-vimp;
+mulist=[mu-mumax*exp(-x.*x/(l0*l0));mu*ones(dim-l0,1)-vimp(l0+1:end)];
 
 diagmulist=spdiags(mulist,0,dim,dim);
 delta=delta*(sqrt(1-(vz/vc)^2))*(vz<vc);
