@@ -1,12 +1,12 @@
 %%smooth potential confinement
-function [re,ham]=hsemu(a,mu,delta,vz,alpha_R,gamma,vc,omega,n,beta,dim,smoothpot,mumax,peakpos,sigma)
+function [re,ham]=hsemu(a,mu,delta,vz,alpha_R,gamma,vc,omega,n,beta,dim,smoothpot,mumax,peakpos,sigma,period)
 t=25/a^2;
 sx=[0,1;1,0];
 sy=[0,-1i;1i,0];
 sz=[1,0;0,-1];
 alpha=alpha_R/(2*a);
-band11sm=(spdiags([ones(dim,1) ones(dim,1)],[-1,1],dim,dim));
-band1m1sm=(spdiags([ones(dim,1) -ones(dim,1)],[-1,1],dim,dim));
+band11sm=(spdiags([ones(dim,1) ones(dim,1)],[-1,1],dim,dim))+period*sparse([1,dim],[dim,1],[1,1],dim,dim);
+band1m1sm=(spdiags([ones(dim,1) -ones(dim,1)],[-1,1],dim,dim))+period*sparse([1,dim],[dim,1],[1,1],dim,dim);
 eyesm=speye(dim);
 eye4sm=speye(4*dim);
 site=(0:dim-1)';
