@@ -1,5 +1,5 @@
 %%for self energy & gap disorder
-function [dosmap,rev,randlist]=spec_seg_sp(a,mu,delta,alpha,gamma,vc,dim,sigma,randlist)
+function [dosmap,rev,randlist]=spec_seg_sp(a,mu,delta,alpha,gamma,vc,dim,sigma,randlist,period)
 % a=1;
  vzlist=linspace(0,2,401);
 %vzlist=0:0.001:1.05;
@@ -17,7 +17,7 @@ parfor i=1:length(vzlist)
     vz=vzlist(i);
     vzrandlist=vz*randlist;
     disp(i);
-    dos=arrayfun(@(w) dosseg(a,mu,delta,vz,alpha,gamma,vc,dim,vzrandlist,w,1e-3),enlist);
+    dos=arrayfun(@(w) dosseg(a,mu,delta,vz,alpha,gamma,vc,dim,vzrandlist,w,1e-3,period),enlist);
     [~,loc]=findpeaks(dos,'MinPeakHeight',10);
     init=enlist(loc);
 %     num_init=min(nv,length(init));

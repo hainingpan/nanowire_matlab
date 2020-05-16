@@ -1,13 +1,13 @@
 %%ham for self energy and QD
-function [re,ham]=hseqddis(a,mu,delta,vz,alpha_R,gamma,vc,omega,n,beta,mumax,l0,dim,vimp)
+function [re,ham]=hseqddis(a,mu,delta,vz,alpha_R,gamma,vc,omega,n,beta,mumax,l0,dim,vimp,period)
 % t=25/a^2;
 t=25/a^2;
 sx=[0,1;1,0];
 sy=[0,-1i;1i,0];
 sz=[1,0;0,-1];
 alpha=alpha_R/(2*a);
-band11sm=(spdiags(1.0*[ones(dim,1) ones(dim,1)],[-1,1],dim,dim));
-band1m1sm=(spdiags([ones(dim,1) -ones(dim,1)],[-1,1],dim,dim));
+band11sm=(spdiags([ones(dim,1) ones(dim,1)],[-1,1],dim,dim))+period*sparse([1,dim],[dim,1],[1,1],dim,dim);
+band1m1sm=(spdiags([ones(dim,1) -ones(dim,1)],[-1,1],dim,dim))+period*sparse([1,dim],[dim,1],[1,1],dim,dim);
 eyesm=speye(dim);
 x=(1:l0)'-1;
 mulist=[mu-mumax*exp(-x.*x/(l0*l0));mu*ones(dim-l0,1)-vimp(l0+1:end)];
