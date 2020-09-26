@@ -1,4 +1,4 @@
-function LDOS_dis(a,mu,Delta,muVar,mulist,dim)
+function LDOS_dis(a,mu,Delta,muVar,N_muVar,mulist,dim)
 % mu=1;
 % Delta=.2;
 alpha_R=5;
@@ -10,9 +10,11 @@ lenVz=length(Vzlist);
 lenenergy=length(energylist);
 % muVar=1;
 if length(mulist)==1
-    mulist=muVar*randn(dim,1);
+    mulist=muVar*randn(N_muVar,1);
 %     mulist=muVar*(2*rand(n,1)-1);
 end
+mulist=arrayfun(@(x) mulist(floor((x-1)*N_muVar/dim)+1),1:dim);
+
 parfor i=1:lenVz
     for j=1:lenenergy
     Vz=Vzlist(i);

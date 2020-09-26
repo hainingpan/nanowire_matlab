@@ -1,14 +1,14 @@
 %%for self energy & disorder
 function [dosmap,rev,vimp]=spec_sedis_sp(a,mu,delta,alpha,gamma,vc,dim,v,vimp,period)
 % a=1;
-vzlist=linspace(0,2.048,401);
+vzlist=linspace(0,2.048*5,801);
 % vzlist=0:0.001:1.05;
 % nv=20;
 if vimp==0
     vimp=v*randn(dim,1);
 end
 dosmap=cell(1,length(vzlist));
-enlist=linspace(-.21,.21,1001);
+enlist=linspace(-.21,.21,101);
 parfor i=1:length(vzlist)
     vz=vzlist(i);
     disp(i);
@@ -31,10 +31,10 @@ fn_wl=strcat('L',num2str(dim));
 fn_gamma=strcat('g',num2str(gamma));
 fn_v=strcat('v',num2str(v));
 fn_vc=strcat('vc',num2str(vc))*(vc~=inf);
+fn_period='_p'*(period==1);
 
 
-
-fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_gamma,fn_v,fn_vc);
+fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_gamma,fn_v,fn_vc,fn_period);
 % save(strcat(fn,'.dat'),'dosmap','-ascii');
 
 fid = fopen(strcat(fn,'.dat'),'w');
