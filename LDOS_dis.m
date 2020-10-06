@@ -15,11 +15,13 @@ if length(mulist)==1
 end
 mulist=arrayfun(@(x) mulist(floor((x-1)*N_muVar/dim)+1),1:dim);
 
-for i=1:lenVz
+parfor i=1:lenVz
     for j=1:lenenergy
     Vz=Vzlist(i);
     energy=energylist(j);
-    ldosmap(i,j,:)=ldosall_dis(a,mu,Delta,Vz,alpha_R,mulist,dim,energy,delta);    
+    tic;
+    ldosmap(i,j,:)=ldosall_dis(a,mu,Delta,Vz,alpha_R,mulist,dim,energy,delta);   
+    toc;
     end
 end
 
