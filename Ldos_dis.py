@@ -92,6 +92,8 @@ def main():
     elif muVar!=0:
         mulist=np.random.normal(0,muVar,int(NmuVar))
         mulist=[mulist.flatten()[int(NmuVar/dim*x)] for x in range(dim)]
+    else:
+        mulist=args.mulist
 
     fn='loss'+str(loss)+'m'+str(mu)+'D'+str(Delta)+'muVar'+str(muVar)+'L'+str(dim)
     fname=fn+'.sav'
