@@ -9,8 +9,9 @@ band11sm=(spdiags([ones(dim,1) ones(dim,1)],[-1,1],dim,dim))+period*sparse([1,di
 band1m1sm=(spdiags([ones(dim,1) -ones(dim,1)],[-1,1],dim,dim))+period*sparse([1,dim],[dim,1],[1,-1],dim,dim);
 eyesm=speye(dim);
 % mulist=mu*ones(dim,1);
-mulist=mu-vimp;
-diagmulist=spdiags(mulist',0,dim,dim);
+mulist=mu*ones(dim,1)-vimp;
+% writematrix(vimp,'tmp.txt')
+diagmulist=spdiags(mulist,0,dim,dim);
 re=kron(sz,(kron(eye(2),-t*band11sm+(2*t)*eyesm-diagmulist)+kron(sy,1i*alpha*band1m1sm)))+kron(eye(2),kron(sz,vz*eyesm))+kron(sx,kron(eye(2),delta*eyesm));
 end
 
