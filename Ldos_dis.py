@@ -1,8 +1,8 @@
+import matplotlib
+matplotlib.use('Agg')
 import numpy as np
 import tinyarray
 import matplotlib.pyplot as plt
-import matplotlib
-matplotlib.use('Agg')
 from scipy.sparse import spdiags
 from scipy.sparse import eye
 from scipy.sparse import kron
