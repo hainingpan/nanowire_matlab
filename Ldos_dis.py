@@ -47,12 +47,15 @@ def LDOS_dis(p,a,mu,Delta,alpha_R,mulist,dim,delta):
 def main():
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--loss', default=0.1);
-    parser.add_argument('--dim', default=100);
-    parser.add_argument('--mu', default=1);
-    parser.add_argument('--Delta', default=0.2);
-    parser.add_argument('--alpha_R', default=5);
-    parser.add_argument('--muVar', default=0);
+    parser.add_argument('--loss', default=0.1)
+    parser.add_argument('--dim', default=100)
+    parser.add_argument('--mu', default=1)
+    parser.add_argument('--Delta', default=0.2)
+    parser.add_argument('--alpha_R', default=5)
+    parser.add_argument('--muVar', default=0)
+    parser.add_argument('--mulist', default=0)
+    parser.add_argument('--NmuVar', default=0)
+
     args = parser.parse_args();
 
     print("loss = %s" % args.loss)
@@ -61,6 +64,8 @@ def main():
     print("Delta = %s" % args.Delta)
     print("alpha_R = %s" % args.alpha_R)
     print("muVar = %s" % args.muVar)
+    print("mulist = %s" % args.mulist)
+    print("NmuVar = %s" % args.NmuVar)
 
     loss=float(args.loss)
     dim=int(args.dim)
@@ -68,6 +73,19 @@ def main():
     Delta=float(args.Delta)
     alpha_R=float(args.alpha_R)
     muVar=float(args.muVar)
+    NmuVar=float(args.NmuVar)
+
+    if isinstance(args.mulist,str):
+        muVarfn=args.mulist
+        print('Use disorder file:',muVarfn)
+
+        try:
+            mulist=np.loadtxt(muVarfn)
+        except:
+            print('Cannot find disorder file: ',muVarfn)
+    elif muVar!=0:
+        mulist=np.random.normal(0,muVar,int(NmuVar))
+        mulist=[mulist.flatten()[int(NmuVar/dim*x)] for x in range(dim)]
 
     fn='loss'+str(loss)+'m'+str(mu)+'D'+str(Delta)+'muVar'+str(muVar)+'L'+str(dim)
     fname=fn+'.sav'
@@ -114,9 +132,12 @@ def main():
     np.savetxt(fn+'_LDOS_L.dat',dzz1)
     np.savetxt(fn+'_LDOS_M.dat',dzz2)
     np.savetxt(fn+'_LDOS_R.dat',dzz3)
-    
+
     scatterpts=np.vstack([dx,dy,dz.T]).T
     np.savetxt(fn+'_s.dat',scatterpts)
+
+    if muVar!=0:
+        np.savetxt('randlist.dat',mulist)
 
 if __name__=="__main__":
         main()
