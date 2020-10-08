@@ -55,6 +55,9 @@ def main():
     parser.add_argument('--muVar', default=0)
     parser.add_argument('--mulist', default=0)
     parser.add_argument('--NmuVar', default=0)
+    parser.add_argument('--Vzmax', default=2.048)
+    parser.add_argument('--Vbiasmax', default=0.3)
+
 
     args = parser.parse_args();
 
@@ -66,7 +69,8 @@ def main():
     print("muVar = %s" % args.muVar)
     print("mulist = %s" % args.mulist)
     print("NmuVar = %s" % args.NmuVar)
-
+    print("Vzmax = %s" % args.Vzmax)
+    print("Vbiasmax = %s" % args.Vbiasmax)
     loss=float(args.loss)
     dim=int(args.dim)
     mu=float(args.mu)
@@ -74,6 +78,8 @@ def main():
     alpha_R=float(args.alpha_R)
     muVar=float(args.muVar)
     NmuVar=float(args.NmuVar)
+    Vzmax=float(args.Vzmax)
+    Vbiasmax=float(args.Vbiasmax)
 
     if isinstance(args.mulist,str):
         muVarfn=args.mulist
@@ -90,7 +96,7 @@ def main():
     fn='loss'+str(loss)+'m'+str(mu)+'D'+str(Delta)+'muVar'+str(muVar)+'L'+str(dim)
     fname=fn+'.sav'
     learner = adaptive.Learner2D(partial(LDOS_dis,a=1,mu=1,Delta=0.2,alpha_R=5,mulist=0,dim=1000,delta=1e-3),\
-                                 bounds=[(0., 2.), (-0.3, 0.3)])
+                                 bounds=[(0., Vzmax), (-Vbiasmax, Vbiasmax)])
     learner.load(fname)
     runner = adaptive.Runner(learner, executor=MPIPoolExecutor(),shutdown_executor=True,\
         goal=lambda l: l.loss() < loss)
@@ -105,7 +111,7 @@ def main():
     for i in range(dd.shape[0]):
         dx[i],dy[i]=dd[i,0]
     dz=np.vstack(dz)
-    dxx, dyy = np.meshgrid(np.linspace(0,2.048,401),np.linspace(-.3,.3,401))
+    dxx, dyy = np.meshgrid(np.linspace(0,Vzmax,401),np.linspace(-Vbiasmax,Vbiasmax,401))
     dzz0 = griddata((dx,dy),dz[:,0],(dxx,dyy), method='linear')
     dzz1 = griddata((dx,dy),dz[:,1],(dxx,dyy), method='linear')
     dzz2 = griddata((dx,dy),dz[:,2],(dxx,dyy), method='linear')
