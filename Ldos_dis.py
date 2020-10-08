@@ -54,7 +54,7 @@ def main():
                                  bounds=[(0., 2.), (-0.3, 0.3)])
     learner.load(fname)
     runner = adaptive.Runner(learner, executor=MPIPoolExecutor(),shutdown_executor=True,\
-    goal=lambda l: l.loss() < loss
+        goal=lambda l: l.loss() < loss)
     runner.start_periodic_saving(dict(fname=fname), interval=600)
     runner.ioloop.run_until_complete(runner.task)
     learner.save(fname)
