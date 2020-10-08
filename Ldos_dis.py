@@ -95,7 +95,7 @@ def main():
 
     fn='loss'+str(loss)+'m'+str(mu)+'D'+str(Delta)+'muVar'+str(muVar)+'L'+str(dim)
     fname=fn+'.sav'
-    learner = adaptive.Learner2D(partial(LDOS_dis,a=1,mu=1,Delta=0.2,alpha_R=5,mulist=0,dim=1000,delta=1e-3),\
+    learner = adaptive.Learner2D(partial(LDOS_dis,a=1,mu=mu,Delta=Delta,alpha_R=alpha_R,mulist=mulist,dim=dim,delta=1e-3),\
                                  bounds=[(0., Vzmax), (-Vbiasmax, Vbiasmax)])
     learner.load(fname)
     runner = adaptive.Runner(learner, executor=MPIPoolExecutor(),shutdown_executor=True,\
