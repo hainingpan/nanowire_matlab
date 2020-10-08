@@ -12,6 +12,7 @@ import adaptive
 from functools import partial
 from scipy.interpolate import griddata
 import sys
+from mpi4py.futures import MPIPoolExecutor
 
 
 s0 = tinyarray.array([[1, 0], [0, 1]]);
@@ -48,9 +49,15 @@ def main():
         loss=float(sys.argv[1])
     else:
         loss=0.1
+    fname='savloss'+str(loss)
     learner = adaptive.Learner2D(partial(LDOS_dis,a=1,mu=1,Delta=0.2,alpha_R=5,mulist=0,dim=1000,delta=1e-3),\
                                  bounds=[(0., 2.), (-0.3, 0.3)])
-    running = adaptive.BlockingRunner(learner, goal=lambda l: l.loss() < loss)
+    learner.load(fname)
+    runner = adaptive.Runner(learner, executor=MPIPoolExecutor(),shutdown_executor=True,\
+    goal=lambda l: l.loss() < loss
+    runner.start_periodic_saving(dict(fname=fname), interval=600)
+    runner.ioloop.run_until_complete(runner.task)
+    learner.save(fname)
 
     dd=np.array(list(learner.data.items()))
     dz=dd[:,1]
