@@ -13,6 +13,7 @@ from functools import partial
 from scipy.interpolate import griddata
 import sys
 from mpi4py.futures import MPIPoolExecutor
+import argparse
 
 
 s0 = tinyarray.array([[1, 0], [0, 1]]);
@@ -44,12 +45,32 @@ def LDOS_dis(p,a,mu,Delta,alpha_R,mulist,dim,delta):
     return np.array([z.mean(),z[0],z[int(dim/2)],z[-1]])
 
 def main():
-    vars=len(sys.argv)
-    if vars>1:
-        loss=float(sys.argv[1])
-    else:
-        loss=0.1
-    fname='savloss'+str(loss)
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--loss', default=0.1);
+    parser.add_argument('--dim', default=100);
+    parser.add_argument('--mu', default=1);
+    parser.add_argument('--Delta', default=0.2);
+    parser.add_argument('--alpha_R', default=5);
+    parser.add_argument('--muVar', default=0);
+    args = parser.parse_args();
+
+    print("loss = %s" % args.loss)
+    print("dim = %s" % args.dim)
+    print("mu = %s" % args.mu)
+    print("Delta = %s" % args.Delta)
+    print("alpha_R = %s" % args.alpha_R)
+    print("muVar = %s" % args.muVar)
+
+    loss=float(args.loss)
+    dim=int(args.dim)
+    mu=float(args.mu)
+    Delta=float(args.Delta)
+    alpha_R=float(args.alpha_R)
+    muVar=float(args.muVar)
+
+    fn='loss'+str(loss)+'m'+str(mu)+'D'+str(Delta)+'muVar'+str(muVar)+'L'+str(dim)
+    fname=fn+'.sav'
     learner = adaptive.Learner2D(partial(LDOS_dis,a=1,mu=1,Delta=0.2,alpha_R=5,mulist=0,dim=1000,delta=1e-3),\
                                  bounds=[(0., 2.), (-0.3, 0.3)])
     learner.load(fname)
@@ -66,14 +87,36 @@ def main():
     for i in range(dd.shape[0]):
         dx[i],dy[i]=dd[i,0]
     dz=np.vstack(dz)
-    dxx, dyy = np.meshgrid(np.linspace(0,2,400),np.linspace(-.3,.3,400))
-    dzz = griddata((dx,dy),dz[:,0],(dxx,dyy), method='linear')
+    dxx, dyy = np.meshgrid(np.linspace(0,2.048,401),np.linspace(-.3,.3,401))
+    dzz0 = griddata((dx,dy),dz[:,0],(dxx,dyy), method='linear')
+    dzz1 = griddata((dx,dy),dz[:,1],(dxx,dyy), method='linear')
+    dzz2 = griddata((dx,dy),dz[:,2],(dxx,dyy), method='linear')
+    dzz3 = griddata((dx,dy),dz[:,3],(dxx,dyy), method='linear')
     fig,ax=plt.subplots()
-    ax.pcolormesh(dxx,dyy,dzz)
-    fig.savefig('loss'+str(loss)+'.png')
-    np.savetxt('loss'+str(loss)+'x.dat',dxx)
-    np.savetxt('loss'+str(loss)+'y.dat',dyy)
-    np.savetxt('loss'+str(loss)+'z.dat',dzz)
+    ax.pcolormesh(dxx,dyy,dzz0)
+    fig.savefig(fn+'_DOS.png')
+
+    fig,ax=plt.subplots()
+    ax.pcolormesh(dxx,dyy,dzz1)
+    fig.savefig(fn+'_LDOS_L.png')
+
+    fig,ax=plt.subplots()
+    ax.pcolormesh(dxx,dyy,dzz2)
+    fig.savefig(fn+'_LDOS_M.png')
+
+    fig,ax=plt.subplots()
+    ax.pcolormesh(dxx,dyy,dzz3)
+    fig.savefig(fn+'_LDOS_R.png')
+
+    np.savetxt(fn+'_Vz.dat',dxx)
+    np.savetxt(fn+'_Vbias.dat',dyy)
+    np.savetxt(fn+'_DOS.dat',dzz0)
+    np.savetxt(fn+'_LDOS_L.dat',dzz1)
+    np.savetxt(fn+'_LDOS_M.dat',dzz2)
+    np.savetxt(fn+'_LDOS_R.dat',dzz3)
+    
+    scatterpts=np.vstack([dx,dy,dz.T]).T
+    np.savetxt(fn+'_s.dat',scatterpts)
 
 if __name__=="__main__":
         main()
