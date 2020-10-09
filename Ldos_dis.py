@@ -84,7 +84,6 @@ def main():
     if isinstance(args.mulist,str):
         muVarfn=args.mulist
         print('Use disorder file:',muVarfn)
-
         try:
             mulist=np.loadtxt(muVarfn)
         except:
@@ -145,7 +144,7 @@ def main():
     np.savetxt(fn+'_s.dat',scatterpts)
 
     if muVar!=0:
-        np.savetxt('randlist.dat',mulist)
+        np.savetxt(fn+'_randlist.dat',mulist)
 
 if __name__=="__main__":
         main()
