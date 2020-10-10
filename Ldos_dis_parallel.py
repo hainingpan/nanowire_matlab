@@ -7,7 +7,7 @@ from scipy.sparse import spdiags
 from scipy.sparse import eye
 from scipy.sparse import kron
 from scipy.sparse.linalg import inv
-from scipy.sparse import csr_matrix
+from scipy.sparse import csc_matrix
 import adaptive
 from functools import partial
 from scipy.interpolate import griddata
@@ -28,8 +28,8 @@ size=comm.Get_size();
 def hdis(a,mu,delta,vz,alpha_R,dim,vimp):
     t=25/a**2
     alpha=alpha_R/(2*a)
-    band11sm=spdiags(np.vstack([np.ones(dim),np.ones(dim)]),np.array([-1,1]),dim,dim,format = 'csr')
-    band1m1sm=spdiags(np.vstack([np.ones(dim),-np.ones(dim)]),np.array([-1,1]),dim,dim,format = 'csr')
+    band11sm=spdiags(np.vstack([np.ones(dim),np.ones(dim)]),np.array([-1,1]),dim,dim,format = 'csc')
+    band1m1sm=spdiags(np.vstack([np.ones(dim),-np.ones(dim)]),np.array([-1,1]),dim,dim,format = 'csc')
     eyesm=eye(dim)
     mulist=mu*np.ones(dim)-vimp
     diagmulist=spdiags(mulist,0,dim,dim)
@@ -38,7 +38,7 @@ def hdis(a,mu,delta,vz,alpha_R,dim,vimp):
 
 def ldosall_dis(a,mu,Delta,Vz,alpha_R,mulist,dim,omega,delta):
     ham=hdis(a,mu,Delta,Vz,alpha_R,dim,mulist);
-    hh=csr_matrix((omega+1j*delta)*eye(4*dim)-ham)
+    hh=csc_matrix((omega+1j*delta)*eye(4*dim)-ham)
     G=inv(hh)
     Gdiag=(G).diagonal()
     return -np.sum((np.reshape(Gdiag,(4,-1))),0).imag/np.pi
