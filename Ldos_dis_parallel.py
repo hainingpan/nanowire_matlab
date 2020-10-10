@@ -119,8 +119,8 @@ def main():
         for j in range(tot_energy):
             Vz=(i+per*rank)*vzstep
             energy=energylist[j]
-            # print('Vz: '+str(Vz)+' energy: '+str(energy)+' by rank: '+str(rank))
-            # sys.stdout.flush()
+            print('Vz: '+str(Vz)+' energy_list: '+str(j)+' by rank: '+str(rank))
+            sys.stdout.flush()
             sendbuf_DOS[i,j],sendbuf_LDOS_L[i,j],sendbuf_LDOS_M[i,j],sendbuf_LDOS_R[i,j]=func((Vz,energy))
 
 
