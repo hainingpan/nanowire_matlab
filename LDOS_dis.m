@@ -3,26 +3,31 @@ function LDOS_dis(a,mu,Delta,muVar,N_muVar,mulist,dim)
 % Delta=.2;
 alpha_R=5;
 delta=1e-3;
-Vzlist=linspace(0,2.048,201);
-energylist=linspace(-.3,.3,201);
+Vzlist=linspace(0,2.048,75);
+energylist=linspace(-.3,.3,75);
 ldosmap=zeros(length(Vzlist),length(energylist),dim);
 lenVz=length(Vzlist);
 lenenergy=length(energylist);
 % muVar=1;
+writematrix(mulist,'m1.txt')
 if length(mulist)==1
     mulist=muVar*randn(N_muVar,1);
 %     mulist=muVar*(2*rand(n,1)-1);
 end
+writematrix(mulist,'m2.txt')
+
 mulist=arrayfun(@(x) mulist(floor((x-1)*N_muVar/dim)+1),1:dim);
 
+writematrix(mulist,'m3.txt')
+
 parfor i=1:lenVz
+%     tic;
     for j=1:lenenergy
     Vz=Vzlist(i);
-    energy=energylist(j);
-    tic;
-    ldosmap(i,j,:)=ldosall_dis(a,mu,Delta,Vz,alpha_R,mulist,dim,energy,delta);   
-    toc;
+    energy=energylist(j);    
+    ldosmap(i,j,:)=ldosall_dis(a,mu,Delta,Vz,alpha_R,mulist,dim,energy,delta);       
     end
+%     toc;
 end
 
 figure;

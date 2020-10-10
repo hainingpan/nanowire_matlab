@@ -24,7 +24,7 @@ sz = tinyarray.array([[1, 0], [0, -1]]);
 comm = MPI.COMM_WORLD;
 rank = comm.Get_rank();
 size=comm.Get_size();
-
+# print('size:'+str(size)+'rank:'+str(rank))
 def hdis(a,mu,delta,vz,alpha_R,dim,vimp):
     t=25/a**2
     alpha=alpha_R/(2*a)
@@ -61,7 +61,8 @@ def main():
         parser.add_argument('--NmuVar', default=0)
         parser.add_argument('--Vzmax', default=2.048)
         parser.add_argument('--Vbiasmax', default=0.3)
-
+        parser.add_argument('--tot_vz', default=200)
+        parser.add_argument('--tot_energy', default=200)
         args = parser.parse_args();
 
         print("dim = %s" % args.dim)
@@ -82,7 +83,8 @@ def main():
         parameters['NmuVar']=float(args.NmuVar)
         parameters['Vzmax']=float(args.Vzmax)
         parameters['Vbiasmax']=float(args.Vbiasmax)
-
+        parameters['tot_vz']=int(args.tot_vz)
+        parameters['tot_energy']=int(args.tot_energy)
         if isinstance(args.mulist,str):
             muVarfn=args.mulist
             print('Use disorder file:',muVarfn)
@@ -105,7 +107,7 @@ def main():
 
     func=partial(LDOS_dis,a=1,mu=parameters['mu'],Delta=parameters['Delta'],alpha_R=parameters['alpha_R'],\
         mulist=parameters['mulist'],dim=parameters['dim'],delta=1e-3)
-    tot_vz,tot_energy=200,200
+    tot_vz,tot_energy=parameters['tot_vz'],parameters['tot_energy']
     per=int(tot_vz/size)
     sendbuf_DOS=np.empty((per,tot_energy))
     sendbuf_LDOS_L=np.empty((per,tot_energy))
@@ -117,7 +119,10 @@ def main():
         for j in range(tot_energy):
             Vz=(i+per*rank)*vzstep
             energy=energylist[j]
+            # print('Vz: '+str(Vz)+' energy: '+str(energy)+' by rank: '+str(rank))
+            # sys.stdout.flush()
             sendbuf_DOS[i,j],sendbuf_LDOS_L[i,j],sendbuf_LDOS_M[i,j],sendbuf_LDOS_R[i,j]=func((Vz,energy))
+
 
     if rank==0:
         recvbuf_DOS=np.empty((tot_vz,tot_energy))
