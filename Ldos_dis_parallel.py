@@ -158,9 +158,9 @@ def main():
         fig.savefig(fn+'_LDOS_R.png')
 
         np.savetxt(fn+'_DOS.dat',recvbuf_DOS)
-        np.savetxt(fn+'_LDOS_L.dat',recvbuf_DOS)
-        np.savetxt(fn+'_LDOS_M.dat',recvbuf_DOS)
-        np.savetxt(fn+'_LDOS_R.dat',recvbuf_DOS)
+        np.savetxt(fn+'_LDOS_L.dat',recvbuf_LDOS_L)
+        np.savetxt(fn+'_LDOS_M.dat',recvbuf_LDOS_M)
+        np.savetxt(fn+'_LDOS_R.dat',recvbuf_LDOS_R)
 
 
         if parameters['muVar']!=0:
