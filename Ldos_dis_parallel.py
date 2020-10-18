@@ -1,7 +1,7 @@
 import matplotlib
 matplotlib.use('Agg')
 import numpy as np
-import tinyarray
+# import tinyarray
 import matplotlib.pyplot as plt
 from scipy.sparse import spdiags
 from scipy.sparse import eye
@@ -16,10 +16,10 @@ from mpi4py import MPI
 import argparse
 
 
-s0 = tinyarray.array([[1, 0], [0, 1]]);
-sx = tinyarray.array([[0, 1], [1, 0]]);
-sy = tinyarray.array([[0, -1j], [1j, 0]]);
-sz = tinyarray.array([[1, 0], [0, -1]]);
+s0 = np.array([[1, 0], [0, 1]]);
+sx = np.array([[0, 1], [1, 0]]);
+sy = np.array([[0, -1j], [1j, 0]]);
+sz = np.array([[1, 0], [0, -1]]);
 
 comm = MPI.COMM_WORLD;
 rank = comm.Get_rank();
