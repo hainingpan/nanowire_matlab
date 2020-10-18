@@ -8,7 +8,6 @@ from scipy.sparse import eye
 from scipy.sparse import kron
 from scipy.sparse.linalg import inv
 from scipy.sparse import csc_matrix
-import adaptive
 from functools import partial
 from scipy.interpolate import griddata
 import sys
