@@ -3,8 +3,8 @@ function LDOS_dis(a,mu,Delta,muVar,N_muVar,mulist,dim)
 % Delta=.2;
 alpha_R=5;
 delta=1e-3;
-Vzlist=linspace(0,2.048,75);
-energylist=linspace(-.3,.3,75);
+Vzlist=linspace(0,2.048,201);
+energylist=linspace(-.3,.3,201);
 ldosmap=zeros(length(Vzlist),length(energylist),dim);
 lenVz=length(Vzlist);
 lenenergy=length(energylist);
