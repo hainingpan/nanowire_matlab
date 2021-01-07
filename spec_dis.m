@@ -1,7 +1,7 @@
 %%spectrum for disorder
 function [rev,re,vimp]=spec_dis(a,mu,dim,v,vimp)
 % a=1;
-delta=0.2;
+delta=0.0;
 alpha=5;
 vzlist=linspace(0,2.048,100);
 nv=80;
@@ -12,7 +12,7 @@ if vimp==0
 end
 parfor i=1:length(vzlist)
     vz=vzlist(i);
-    ham=hdis(a,mu,delta,vz,alpha,dim,vimp);
+    ham=hdis(a,mu,delta,vz,alpha,dim,vimp,0);
     eigo=eigs(ham,nv,0,'Tolerance',1e-5,'MaxIterations',20000);
     en(:,i)=sort(eigo(1:nv));
 end
