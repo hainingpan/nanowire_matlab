@@ -157,7 +157,7 @@ def main():
     comm.Gather(sendbuf_LDOS_R,recvbuf_LDOS_R,root=0)
 
     if rank==0:
-        plt.rcParams['pcolor.shading']='auto'
+        # plt.rcParams['pcolor.shading']='auto'
         fn_mu=('m'+str(parameters['mu']))
         fn_Delta='D'+str(parameters['delta0'])
         fn_alpha='a'+str(parameters['alpha_R'])
