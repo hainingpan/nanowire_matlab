@@ -8,12 +8,12 @@
 % spec_sedis_sp(1,1,.2,5,.2,inf,300,0.6,randlist,1);
 % randlist=load('D:\CMTC\bothlead\Rp25\disorder\23\muVarlist.dat');
 % spec_sedis_sp(1,1,.2,5,.2,inf,300,0.8,randlist,1);
-randlist=load('D:\CMTC\bothlead\Rp25\ugly\muVar\L3\randlist.dat');
-spec_sedis_sp(1,1,.2,5,.2,inf,300,1,randlist,0);
-spec_sedis_sp(1,1,.2,5,.2,inf,300,1,randlist,1);
-randlist=load('D:\CMTC\bothlead\Rp25\disorder\4\muVarlist.dat');
-spec_sedis_sp(1,1,.2,5,.2,inf,300,2,randlist,0);
-spec_sedis_sp(1,1,.2,5,.2,inf,300,2,randlist,1);
+% randlist=load('D:\CMTC\bothlead\Rp25\ugly\muVar\L3\randlist.dat');
+% spec_sedis_sp(1,1,.2,5,.2,inf,300,1,randlist,0);
+% spec_sedis_sp(1,1,.2,5,.2,inf,300,1,randlist,1);
+% randlist=load('D:\CMTC\bothlead\Rp25\disorder\4\muVarlist.dat');
+% spec_sedis_sp(1,1,.2,5,.2,inf,300,2,randlist,0);
+% spec_sedis_sp(1,1,.2,5,.2,inf,300,2,randlist,1);
 
 % 
 % randlist=load('D:\CMTC\bothlead\Rp25\good\DeltaVar\L3\randlist.dat');
@@ -41,3 +41,7 @@ spec_sedis_sp(1,1,.2,5,.2,inf,300,2,randlist,1);
 % spec_seg_sp(1,1,.2,5,.2,1.2,100,0.8,randlist);
 % randlist=load('d:\cmtc\bothlead\Rp19\gvar3\13\vimp.txt');
 % spec_seg_sp(1,1,.2,5,.2,1.2,300,0.6,randlist);
+
+for i=2:10
+    [rev,re,vimp]=spec_dis(1,i,300,0,0);
+end

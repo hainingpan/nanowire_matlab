@@ -3,8 +3,8 @@ function LDOS_sedis(a,mu,Delta,gamma,vc,muVar,mulist,dim)
 % Delta=.2;
 alpha_R=5;
 delta=1e-3;
-Vzlist=linspace(0,2.048,401);
-energylist=linspace(-.3,.3,401);
+Vzlist=linspace(0,2.048,101);
+energylist=linspace(-.3,.3,101);
 ldosmap=zeros(length(Vzlist),length(energylist),dim);
 lenVz=length(Vzlist);
 lenenergy=length(energylist);

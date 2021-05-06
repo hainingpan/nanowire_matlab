@@ -1,14 +1,21 @@
 %%for self energy & disorder
-function [dosmap,rev,vimp]=spec_sedis_sp(a,mu,delta,alpha,gamma,vc,dim,v,vimp,period)
+function [dosmap,rev,dosmap2,vimp]=spec_sedis_sp(a,mu,delta,alpha,gamma,vc,dim,v,vimp,period)
 % a=1;
-vzlist=linspace(0,2.048*5,801);
+vzlist=linspace(0,2*mu,201);
+% vzlist=linspace(0,1.2,101);
+% vzlist=linspace(0,8,101);
+
+
 % vzlist=0:0.001:1.05;
 % nv=20;
 if vimp==0
     vimp=v*randn(dim,1);
 end
 dosmap=cell(1,length(vzlist));
-enlist=linspace(-.21,.21,101);
+enlist=linspace(-.21,.21,201);
+% enlist=linspace(-3,3,101);
+
+dosmap2=zeros(length(enlist),length(vzlist));
 parfor i=1:length(vzlist)
     vz=vzlist(i);
     disp(i);
@@ -22,6 +29,7 @@ parfor i=1:length(vzlist)
 %     end
     dc=delta*sqrt(1-(vz/vc)^2);
     dosmap{i}=init(abs(init)<dc); 
+    dosmap2(:,i)=dos
 end
 rev=vzlist;
 fn_mu=strcat('m',num2str(mu));
@@ -54,9 +62,10 @@ end
 
 box on
 hold off
-xlabel('V_Z(meV)')
-ylabel('V_{bias}(meV)')
-axis([0,vzlist(end),-.3,.3])
-line([sqrt(mu^2+gamma^2),sqrt(mu^2+gamma^2)],[-0.3,0.3])
-saveas(gcf,strcat(fn,'.png'))
+xlabel('V_Z(meV)');
+ylabel('V_{bias}(meV)');
+axis([0,vzlist(end),enlist(1),enlist(end)]);
+line([sqrt(mu^2+gamma^2),sqrt(mu^2+gamma^2)],[-0.3,0.3]);
+saveas(gcf,strcat(fn,'.png'));
+save(strcat(fn,'_LDOS.dat'),'dosmap2','-ascii')
 end

@@ -1,7 +1,9 @@
 %%for self energy & disorder
+%% !! Obsolete
 function [rev,re,dosmap,vimp]=spec_sedis(a,mu,delta,alpha,gamma,vc,dim,v,vimp)
 % a=1;
 vzlist=linspace(0,2,101);
+
 nv=8;
 en=zeros(nv,length(vzlist));
 if vimp==0

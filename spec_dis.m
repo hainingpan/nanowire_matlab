@@ -1,9 +1,9 @@
 %%spectrum for disorder
 function [rev,re,vimp]=spec_dis(a,mu,dim,v,vimp)
 % a=1;
-delta=0.0;
+delta=0.2;
 alpha=5;
-vzlist=linspace(0,2.048,100);
+vzlist=linspace(0,2*mu,1000);
 nv=80;
 en=zeros(nv,length(vzlist));
 % pos=randperm(dim,numdis);
