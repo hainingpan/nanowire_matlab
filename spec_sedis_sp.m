@@ -1,7 +1,7 @@
 %%for self energy & disorder
 function [dosmap,rev,dosmap2,vimp]=spec_sedis_sp(a,mu,delta,alpha,gamma,vc,dim,v,vimp,period)
 % a=1;
-vzlist=linspace(0,2*mu,201);
+vzlist=linspace(0,1.2,201);
 % vzlist=linspace(0,1.2,101);
 % vzlist=linspace(0,8,101);
 
