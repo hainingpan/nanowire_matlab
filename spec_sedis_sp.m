@@ -1,7 +1,7 @@
 %%for self energy & disorder
 function [dosmap,rev,dosmap2,vimp]=spec_sedis_sp(a,mu,delta,alpha,gamma,vc,dim,v,vimp,barrier,period)
 % a=1;
-vzlist=linspace(0,1.2,201);
+vzlist=linspace(0,1.2,101);
 % vzlist=linspace(0,1.2,101);
 % vzlist=linspace(0,8,101);
 
@@ -43,6 +43,7 @@ fn_wl=strcat('L',num2str(dim));
 fn_gamma=strcat('g',num2str(gamma));
 fn_v=strcat('v',num2str(v));
 fn_vc=strcat('vc',num2str(vc))*(vc~=inf);
+fn_b=strcat('b',num2str(barrier))*(vc~=0);
 fn_period='_p'*(period==1);
 
 
@@ -71,5 +72,6 @@ ylabel('V_{bias}(meV)');
 axis([0,vzlist(end),enlist(1),enlist(end)]);
 line([sqrt(mu^2+gamma^2),sqrt(mu^2+gamma^2)],[-0.3,0.3]);
 saveas(gcf,strcat(fn,'.png'));
+savefig(gcf,strcat(fn,'.fig'))
 save(strcat(fn,'_LDOS.dat'),'dosmap2','-ascii')
 end
