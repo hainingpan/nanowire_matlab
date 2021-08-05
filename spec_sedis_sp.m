@@ -47,7 +47,7 @@ fn_b=strcat('b',num2str(barrier))*(barrier~=0);
 fn_period='_p'*(period==1);
 
 
-fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_gamma,fn_v,fn_vc,fn_period);
+fn=strcat(fn_mu,fn_Delta,fn_alpha,fn_wl,fn_gamma,fn_v,fn_vc,fn_b,fn_period);
 % save(strcat(fn,'.dat'),'dosmap','-ascii');
 
 fid = fopen(strcat(fn,'.dat'),'w');
