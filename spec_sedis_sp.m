@@ -1,5 +1,5 @@
 %%for self energy & disorder
-function [dosmap,rev,dosmap2,vimp]=spec_sedis_sp(a,mu,delta,alpha,gamma,vc,dim,v,vimp,period)
+function [dosmap,rev,dosmap2,vimp]=spec_sedis_sp(a,mu,delta,alpha,gamma,vc,dim,v,vimp,barrier,period)
 % a=1;
 vzlist=linspace(0,1.2,201);
 % vzlist=linspace(0,1.2,101);
@@ -10,6 +10,10 @@ vzlist=linspace(0,1.2,201);
 % nv=20;
 if vimp==0
     vimp=v*randn(dim,1);
+end
+
+if barrier~=0   %consider the effect of barrier height
+    vimp(1:2)=barrier;
 end
 dosmap=cell(1,length(vzlist));
 enlist=linspace(-.21,.21,201);
