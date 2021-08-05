@@ -14,6 +14,7 @@ end
 
 if barrier~=0   %consider the effect of barrier height
     vimp(1:2)=barrier;
+    vimp(end-1:end)=barrier;
 end
 dosmap=cell(1,length(vzlist));
 enlist=linspace(-.21,.21,201);
